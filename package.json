@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
     "@reach/combobox": "^0.15.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "babel-loader": "8.1.0",
     "firebase": "^8.6.5",
     "fuse.js": "^6.4.6",
     "postcss": "8.4.31",
@@ -23,12 +27,11 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-  "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-  "build": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-},
-
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
