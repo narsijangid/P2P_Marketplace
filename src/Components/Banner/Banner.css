@@ -1,0 +1,25 @@
+.bannerParentDiv {
+  
+}
+.bannerParentDiv .bannerChildDiv {
+}
+
+
+.bannerChildDiv .banner {
+  position: relative;
+  width: 100%;
+}
+.bannerChildDiv .banner img{
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+@media only screen and (max-width: 700px) {
+  .otherQuickOptions {
+    display: none;
+  }
+  .bannerChildDiv .banner {
+    position: relative;
+  }
+}
