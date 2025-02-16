@@ -26,8 +26,9 @@ const Category = () => {
     return (
         <div className="category__menu">
             <div className="category__title">
+                
                 <div className="category__titleContents" onClick={openModal}>
-                    <span>ALL CATEGORIES</span>
+                    <span>Filter...</span>
                     <div className={modalIsOpen ? 'category__arrow' : 'category__arrowDown'}>
                         <Arrow></Arrow>
                     </div>

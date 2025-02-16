@@ -66,7 +66,7 @@ const Posts = () => {
 
   return (
     <div className="post__ParentDiv">
-      <div className="moreView">
+      {/* <div className="moreView">
         <div className="post__heading">
           <span>Quick Menu</span>
           <span>View more <i className="bi bi-chevron-right"></i></span>
@@ -82,9 +82,9 @@ const Posts = () => {
             })
           }
         </div>
-      </div>
+      </div> */}
       <div className="post__recommendations">
-        <h4>Fresh recommendations</h4>
+        {/* <h4>Fresh recommendations</h4> */}
         <div className="post__freshCards">
           {
             products.map(product => {
@@ -100,7 +100,7 @@ const Posts = () => {
           !loading && !isEmpty && <button className="post__loadmoreBtn" onClick={fetchMore}>Load More</button>
         }
         {
-          isEmpty && <h5 className="post__loadmoreEnd">You have reached the end of world!!!</h5>
+          isEmpty && <h5 className="post__loadmoreEnd">No more Posts !!</h5>
         }
       </div>
       {
