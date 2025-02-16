@@ -1,12 +1,13 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC-N-XjON5GOJ6Bqq9Cnx9UPri_5CwZunA",
-    authDomain: "olx-clone-83579.firebaseapp.com",
-    projectId: "olx-clone-83579",
-    storageBucket: "olx-clone-83579.appspot.com",
-    messagingSenderId: "940914424748",
-    appId: "1:940914424748:web:3a6ee03482e789bbde5809"
+  apiKey: "AIzaSyA5gzDnmVlLo6g3yRs0oHZNgxQsYQMI2w4",
+  authDomain: "dazzlone-d7b14.firebaseapp.com",
+  projectId: "dazzlone-d7b14",
+  storageBucket: "dazzlone-d7b14.appspot.com",
+  messagingSenderId: "971757089584",
+  appId: "1:971757089584:web:470a76d7f0ed823067cef5",
+  measurementId: "G-S74BL1BTVK"
   };
 
 

@@ -154,10 +154,18 @@ function View() {
           }
         </div>
         <div className="item__location">
-          <p>Posted in</p>
-          <p>{data?.place?.value}</p>
-          <img src={`https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/${data?.place?.position?.lon},${data?.place?.position?.lat},12/380x160?access_token=pk.eyJ1IjoiaGFyaWtyaXNobmFuc3NhbmthciIsImEiOiJja3FuenhzMXIwMmhpMnZzMng5cGx0bWNhIn0.dda298RlmnCXkPdi-BBjiQ`} alt="" />
-        </div>
+  <p>Posted in</p>
+  <p>{data?.location?.address || "Location not available"}</p>
+  {data?.location?.latitude && data?.location?.longitude ? (
+    <img
+      src={`https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/${data.location.longitude},${data.location.latitude},12/380x160?access_token=pk.eyJ1IjoiaGFyaWtyaXNobmFuc3NhbmthciIsImEiOiJja3FuenhzMXIwMmhpMnZzMng5cGx0bWNhIn0.dda298RlmnCXkPdi-BBjiQ`}
+      alt="Map Location"
+    />
+  ) : (
+    <p>Map not available</p>
+  )}
+</div>
+
       </div>
     </div>
 
