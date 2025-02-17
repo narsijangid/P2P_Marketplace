@@ -133,49 +133,46 @@ const Chat = () => {
                                     history.push(`/profile/${userId[1]}`)
                             }}>
                                 {userNames?.user2}
-                            </h4> :
+                            </h4>
+                            :
                             <h4 onClick={() => {
                                 (user.uid !== userId[0]) ?
                                     history.push(`/profile/${userId[0]}`)
                                     :
                                     history.push(`/profile/${userId[1]}`)
                             }}>
-                                {userNames.user1}
+                                {userNames?.user1}
                             </h4>
                     }
                 </div>
             }
             {
-                (chatId === 'chatid') && <h2 className="chat__warning">Start Chatting...</h2>
-            }
-            {
-                (forbidden) ?
-                    <>
-                        {
-                            (chatId !== 'chatid') &&
-                            <h2 className="chat__warning">Sorry, Chat is Forbidden...</h2>
-                        }
-                    </>
+                loading ?
+                    <h2>Loading...</h2>
                     :
-                    <div className="chat__messageContainer">
-                        {
-                            messages.map(message => (
-                                <div key={message.id} className={(message.sender === user.uid) ? "chat__message chat__messageSend" : "chat__message chat__messageReceive"}>
-                                    <p className="chat__messageText">{message.text}</p>
-                                    <p className="chat__messageTime">{message.hour}</p>
+                    forbidden ?
+                        <h2 className="chat__warning">You can't message in this group</h2>
+                        :
+                        <div className="chat__messageContainer">
+                            {messages?.map((msg, i) => (
+                                <div key={i} className={msg.sender === user.uid ? 'chat__messageSend' : 'chat__messageReceive'}>
+                                    <div className="chat__messageText">{msg.text}</div>
+                                    <div className="chat__messageTime">{msg.hour}</div>
                                 </div>
-                            ))
-                        }
-                        <div ref={messagesEndRef} />
-                    </div>
+                            ))}
+                            <div ref={messagesEndRef} />
+                        </div>
             }
-            {
-                ((chatId !== 'chatid') && !forbidden) &&
-                <form onSubmit={sendText} className="chat__inputContainer">
-                    <input onChange={(e) => setText(e.target.value)} className="chat__input" type="text" value={text} placeholder="Start typing" />
-                    <i onClick={sendText} className="bi bi-telegram"></i>
-                </form>
-            }
+            <div className="chat__inputContainer">
+                <input
+                    className="chat__input"
+                    type="text"
+                    placeholder="Type a message"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                />
+                <i onClick={sendText} className="bi bi-send chat__sendButton"></i>
+            </div>
         </div>
     );
 }
