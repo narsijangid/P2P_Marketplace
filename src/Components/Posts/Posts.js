@@ -1,114 +1,92 @@
-import React, { useEffect, useState } from 'react';
-import Heart from '../../assets/Heart';
+import React, { useEffect, useState, useCallback } from 'react';
 import './Post.css';
 import db from '../../firebase';
 import Cards from '../Cards/Cards';
 import PacmanLoader from "react-spinners/PacmanLoader";
 
-
-
 const Posts = () => {
   const [products, setProducts] = useState([]);
   const [shuffled, setShuffled] = useState([]);
-  const [lastKey, setLastKey] = useState();
-  const [loading, setLoading] = useState(false);
+  const [lastKey, setLastKey] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isEmpty, setIsEmpty] = useState(false);
-
 
   const fetchRef = db.collection('products').orderBy("date", "desc");
 
   useEffect(() => {
-    fetchRef.limit(20).get().then(snapshot => {
-      const isCollectionEmpty = snapshot.size === 0;
-      if (!isCollectionEmpty) {
-        const allPost = snapshot.docs.map((product) => {
-          return {
-            ...product.data(),
-            id: product.id,
-            createdAt: product.data().date.toDate().toLocaleString('en-IN', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true, day: 'numeric', month: 'numeric', year: 'numeric' }),
-          }
-        })
-        const lastDoc = snapshot.docs[snapshot.docs.length - 1];
-        setProducts(allPost)
-        setShuffled(allPost.slice(0, allPost.length).sort(() => Math.random() - 0.5).slice(0, 10))
-        setLastKey(lastDoc)
+    const unsubscribe = fetchRef.limit(20).onSnapshot(snapshot => {
+      if (!snapshot.empty) {
+        const allPost = snapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id,
+          createdAt: doc.data().date?.toDate().toLocaleString('en-IN', {
+            hour: 'numeric', minute: 'numeric', second: 'numeric',
+            hour12: true, day: 'numeric', month: 'numeric', year: 'numeric'
+          }),
+        }));
+
+        setProducts(allPost);
+        setShuffled(allPost.sort(() => Math.random() - 0.5).slice(0, 10));
+        setLastKey(snapshot.docs[snapshot.docs.length - 1]);
       } else {
-        setIsEmpty(true)
+        setIsEmpty(true);
       }
-    })
-  }, [])
+      setLoading(false);
+    }, error => {
+      console.error("Error fetching data: ", error);
+      setLoading(false);
+    });
 
+    return () => unsubscribe();
+  }, []);
 
-  const fetchMore = () => {
+  const fetchMore = useCallback(async () => {
+    if (!lastKey || loading) return;
+
     setLoading(true);
-    fetchRef.startAfter(lastKey).get()
-      .then(snapshot => {
-        const isCollectionEmpty = snapshot.size === 0;
-        if (!isCollectionEmpty) {
-          const allPost = snapshot.docs.map((product) => {
-            return {
-              ...product.data(),
-              id: product.id,
-              createdAt: product.data().date.toDate().toLocaleString('en-IN', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true, day: 'numeric', month: 'numeric', year: 'numeric' }),
-            }
-          })
-          const lastDoc = snapshot.docs[snapshot.docs.length - 1];
-          setProducts(products => [...products, ...allPost])
-          setLastKey(lastDoc);
-        } else {
-          setIsEmpty(true)
-        }
-        setLoading(false);
-      })
-  }
+    try {
+      const snapshot = await fetchRef.startAfter(lastKey).limit(10).get();
+      if (!snapshot.empty) {
+        const newPosts = snapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id,
+          createdAt: doc.data().date?.toDate().toLocaleString('en-IN', {
+            hour: 'numeric', minute: 'numeric', second: 'numeric',
+            hour12: true, day: 'numeric', month: 'numeric', year: 'numeric'
+          }),
+        }));
 
-
+        setProducts(prev => [...prev, ...newPosts]);
+        setLastKey(snapshot.docs[snapshot.docs.length - 1]);
+      } else {
+        setIsEmpty(true);
+      }
+    } catch (error) {
+      console.error("Error fetching more data: ", error);
+    }
+    setLoading(false);
+  }, [lastKey, loading]);
 
   return (
     <div className="post__ParentDiv">
-      {/* <div className="moreView">
-        <div className="post__heading">
-          <span>Quick Menu</span>
-          <span>View more <i className="bi bi-chevron-right"></i></span>
-        </div>
-        <div className="post__cards">
-          {
-            shuffled.map(product => {
-              return (
-                <div className="post__card" key={product.id}>
-                  <Cards product={product} />
-                </div>
-              )
-            })
-          }
-        </div>
-      </div> */}
       <div className="post__recommendations">
-        {/* <h4>Fresh recommendations</h4> */}
         <div className="post__freshCards">
-          {
-            products.map(product => {
-              return (
-                <div className="post__card" key={product.id}>
-                  <Cards product={product} />
-                </div>
-              )
-            })
-          }
+          {products.map(product => (
+            <div className="post__card" key={product.id}>
+              <Cards product={product} />
+            </div>
+          ))}
         </div>
-        {
-          !loading && !isEmpty && <button className="post__loadmoreBtn" onClick={fetchMore}>Load More</button>
-        }
-        {
-          isEmpty && <h5 className="post__loadmoreEnd">No more Posts !!</h5>
-        }
+        {!loading && !isEmpty && (
+          <button className="post__loadmoreBtn" onClick={fetchMore}>Load More</button>
+        )}
+        {isEmpty && <h5 className="post__loadmoreEnd">No more Posts !!</h5>}
       </div>
-      {
-        loading &&
+      {loading && (
         <div className="post__loadingComponent">
-          <PacmanLoader color={'#006772 '} loading={loading} size={25} />
+          <PacmanLoader color={'#006772'} loading={loading} size={25} />
         </div>
-      }
+      )}
     </div>
   );
 }

@@ -26,14 +26,7 @@ const ChatPage = () => {
 
     return (
         <div className="chat__page">
-            <header className="create__header">
-                <div onClick={() => history.goBack()} className="createBack__icon">
-                    <i className="bi bi-arrow-left"></i>
-                </div>
-                <div onClick={() => history.push('/')} className="create__brandName">
-                    <OlxLogo />
-                </div>
-            </header>
+         
             <div className="chatPage__main">
                 <div className="chatPage__container">
                     <div className={(chatId !== 'chatid') ? 'allChat__only chatPage__allChat' : 'chatPage__allChat'}>

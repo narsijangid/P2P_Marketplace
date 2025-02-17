@@ -10,6 +10,8 @@
   position: relative; /* To make date position work */
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+ 
+  z-index: 0;
 }
 
 .card__container:hover .card__image > img {
@@ -25,6 +27,7 @@
   align-items: center;
   overflow: hidden;
   border-radius: 5px;
+  position: relative;
   position: relative;
 
 }

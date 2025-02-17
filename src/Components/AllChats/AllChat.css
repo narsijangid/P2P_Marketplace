@@ -2,14 +2,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 97%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     height: 100%;
     padding: 10px 10px 0px 10px;
     row-gap: 10px;
     overflow-y: scroll;
-    color: #002f34;
+    color: #000000;
+  
 }
 
 .allChat__container {

@@ -1,30 +1,56 @@
-.chatPage__main {
-    padding-top: 100px;
-    min-height: 100vh;
+/* Reset all default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+/* Make html and body elements take up the full viewport */
+
+/* Ensure the outer wrapper takes full screen */
+.chat__page {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure main container fills the screen */
+.chatPage__main {
+    display: flex;
+    flex: 1;  /* This ensures it takes up the remaining space */
+    width: 100%;
+}
+
+/* The container that holds the chat and the sidebar */
 .chatPage__container {
     display: flex;
-    justify-content: space-evenly;
+    flex: 1;
+    width: 100%;
+    height: 100vh;  /* Full height of the viewport */
+    overflow: hidden;  /* Prevents overflow */
 }
 
+/* Sidebar chat section */
 .chatPage__allChat {
-    width: 35%;
-    height: 81vh;
+    width: 35%;  /* Sidebar width */
+    height: 100%; /* Full height of container */
     border: 1px solid rgba(0, 0, 0, 0.152);
     border-radius: 7px;
     background-color: #f8f8f8;
 }
 
+/* Main chat section */
 .chatPage__chats {
     width: 60%;
-    height: 81vh;
+    height: 100%;
     border: 1px solid rgba(0, 0, 0, 0.159);
     border-radius: 7px;
     margin-left: 20px;
 }
 
-@media only screen and (max-width:800px) {
+/* Responsive adjustments for smaller screens */
+@media only screen and (max-width: 800px) {
     .allChat__only {
         display: none;
     }
@@ -41,6 +67,7 @@
         margin: 0;
     }
     .chatPage__main {
-        padding-top: 80px;
+        padding: 0;
+        margin: 0;
     }
 }

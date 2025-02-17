@@ -1,76 +1,96 @@
 import Arrow from "../../assets/Arrow";
-import './Category.css'
-import Modal from 'react-modal';
-import { useEffect, useState } from "react";
+import "./Category.css";
+import Modal from "react-modal";
+import { useEffect, useState, useCallback } from "react";
 import db from "../../firebase";
 import { useHistory } from "react-router";
 
 const Category = () => {
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [category, setCategory] = useState([]);
-    const [categoryItem, setCategoryItem] = useState('');
-    const [subCategoryItem, setSubCategoryItem] = useState('');
+    const [categories, setCategories] = useState({});
+    const [loading, setLoading] = useState(true); // Loading state
     const history = useHistory();
+
+    // Optimized function to fetch categories (runs only once)
+    const fetchCategories = useCallback(async () => {
+        try {
+            const snapshot = await db.collection("category").get();
+            let data = {};
+            snapshot.docs.forEach(doc => {
+                data[doc.id] = doc.data()[doc.id] || [];
+            });
+            setCategories(data);
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+        } finally {
+            setLoading(false); // Hide loading state
+        }
+    }, []);
+
     useEffect(() => {
-        db.collection('categories').onSnapshot(snapshot => {
-            snapshot.docs.map(category => setCategory(category.data()))
-        })
-    }, [])
+        fetchCategories();
+    }, [fetchCategories]);
 
     function openModal() {
         setIsOpen(true);
     }
+
     function closeModal() {
         setIsOpen(false);
     }
+
     return (
         <div className="category__menu">
             <div className="category__title">
-                
                 <div className="category__titleContents" onClick={openModal}>
                     <span>Filter...</span>
-                    <div className={modalIsOpen ? 'category__arrow' : 'category__arrowDown'}>
-                        <Arrow></Arrow>
+                    <div className={modalIsOpen ? "category__arrow" : "category__arrowDown"}>
+                        <Arrow />
                     </div>
                 </div>
                 <div className="category__quickOptions">
                     <span>Cars</span>
                     <span>Motorcycle</span>
                     <span>Mobile Phone</span>
-                    <span>For Sale:Houses & Apartments</span>
+                    <span>For Sale: Houses & Apartments</span>
                     <span>Scooter</span>
                     <span>Commercial & Other Vehicles</span>
                     <span>For Rent: House & Apartments</span>
                 </div>
             </div>
+
             <Modal
                 isOpen={modalIsOpen}
-                // onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
                 className="Modal"
                 overlayClassName="Overlay"
-                contentLabel="Example Modal"
+                contentLabel="Category Modal"
                 ariaHideApp={false}
             >
-                <i onClick={() => setIsOpen(false)} className="bi bi-x-circle"></i>
+                <i onClick={closeModal} className="bi bi-x-circle"></i>
                 <div className="category__list">
-                    {
-                        Object.keys(category).map((item, key) => {
-                            return (
-                                <div className={`category__listGroup ${item}`} key={key}>
-                                    <h6 onClick={() => setCategoryItem(item)} className="category__listTitle">{item}</h6>
-                                    {category[`${item}`].map((res, k) => {
-                                        return (
-                                            <h6 className="category__listContent" onClick={() => history.push(`/search/search?${res}`)} key={k}>{res}</h6>
-                                        )
-                                    })}
-                                </div>
-                            )
-                        })
-                    }
+                    {loading ? (
+                        <p>Loading categories...</p>
+                    ) : (
+                        Object.keys(categories).map((categoryName, key) => (
+                            <div className="category__listGroup" key={key}>
+                                <h6 className="category__listTitle">{categoryName}</h6>
+                                {categories[categoryName].map((item, k) => (
+                                    <h6
+                                        className="category__listContent"
+                                        onClick={() => history.push(`/search/search?${item}`)}
+                                        key={k}
+                                    >
+                                        {item}
+                                    </h6>
+                                ))}
+                            </div>
+                        ))
+                    )}
                 </div>
             </Modal>
         </div>
     );
-}
+};
+
 export default Category;

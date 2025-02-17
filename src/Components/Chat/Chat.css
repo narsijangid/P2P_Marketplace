@@ -1,113 +1,147 @@
 .chat__main {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    position: relative;
-    
-    
+    height: 100vh;
+    width: 100vw;
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
 }
+
 .chat__header {
-    padding: 10px 25px;
-    background-color: whitesmoke;
+    padding: 15px 20px;
+    background-color: #ffffff;
     color: #002f34;
-    box-shadow: 0px 2px 4px 0.5px rgba(186, 186, 186, 0.652);
-    border-radius: 7px 7px 0px 0px;
-    position: relative;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
     top: 0;
+    z-index: 10;
 }
+
 .chat__header:hover {
     cursor: pointer;
 }
-.chat__header >h4 {
-    margin: 0;
-}
+
 .chat__backArrow {
-    font-size: xx-large;
+    font-size: 24px;
+    color: #002f34;
 }
+
+.chat__header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chat__header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
 .chat__messageContainer {
-    height: 100%;
-    background-color: rgb(235, 231, 231);
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #e5e5e5;
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
-    padding: 10px 20px 50px 20px;
-    overflow-y: auto; 
+    gap: 10px;
+}
 
+.chat__message {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    color: #ffffff;
+    font-size: 14px;
 }
-.chat__messageContainer > :first-child {
-    margin-top: auto;
-}
-.chat__message{
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-   width: max-content;
-   max-width: 500px;
-   
-   
-}
-.chat__messageSend{
-    background-color: rgb(0, 111, 0);
-    border-radius: 13px 13px 0px 13px ;
-    color: whitesmoke;
+
+.chat__messageSend {
+    background-color: #ff9500;
     align-self: flex-end;
+    border-radius: 15px 15px 0 15px;
 }
+
 .chat__messageReceive {
-    background-color: #18410e;
-    color: whitesmoke;
-    border-radius: 0px 13px 13px 13px ;
+    background-color: #000000;
+    align-self: flex-start;
+    border-radius: 0 15px 15px 15px;
+    
 }
+
 .chat__messageText {
     margin: 0;
-    padding: 5px 20px;
+    word-wrap: break-word;
 }
+
 .chat__messageTime {
-    font-size: xx-small;
-    margin: 0;
-    padding: 0px 9px 3px 9px;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 5px;
     align-self: flex-end;
 }
+
 .chat__warning {
+    text-align: center;
     margin: auto;
+    color: #666;
 }
-
-
-
-
-
-
 
 .chat__inputContainer {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    column-gap: 5%;
-    position: absolute;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    position: sticky;
     bottom: 0;
-    background-color: rgba(233, 233, 233, 0);
-    padding-bottom: 5px;
-    width: 100%;
-}
-.chat__input{
-    width: 80%;
-    border-radius: 15px;
-    outline: none;
-    border: none;
-    padding: 5px 25px;
-    background-color: rgba(255, 255, 255, 0);
-    box-shadow: 1px 1px 10px 0.1px rgba(255, 255, 255, 0.597);
-    mix-blend-mode: exclusion;
-    color: rgb(255, 255, 255);
-}
-.chat__inputContainer > i {
-    font-size: xx-large;
-    color: rgb(237, 123, 243);
-    mix-blend-mode: exclusion;
+    z-index: 10;
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
 }
 
-@media only screen and (max-width:800px) {
-    .chat__message{
+.chat__input {
+    flex: 1;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+.chat__inputContainer i {
+    font-size: 24px;
+    color: #007bff;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .chat__header {
+        padding: 10px 15px;
+    }
+
+    .chat__header h4 {
+        font-size: 16px;
+    }
+
+    .chat__message {
         max-width: 80%;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .chat__input {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    .chat__inputContainer i {
+        font-size: 20px;
     }
 }

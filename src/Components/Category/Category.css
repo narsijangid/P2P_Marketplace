@@ -6,8 +6,7 @@
     display: flex;
     flex-direction: column;
     padding: 5em 1.5em 0.6em 2em;
- 
-    
+    z-index: 1;
 }
 
 .category__menu span {}

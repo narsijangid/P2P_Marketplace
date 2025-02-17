@@ -88,10 +88,10 @@ function Header() {
         <Login loginPopOn={loginPopOn} setLoginPopOn={setLoginPopOn} />
       </div>
       <div className="header__sellBtn" >
-        <SellButton ></SellButton>
+      
         <div className="sellMenuContent" onClick={handleSellClick}>
-          <SellButtonPlus></SellButtonPlus>
-          <span>SELL</span>
+        <img src="https://cdn.iconscout.com/icon/free/png-256/free-new-post-icon-download-in-svg-png-gif-file-formats--logo-social-media-communication-pack-user-interface-icons-6147202.png?f=webp&w=256" alt="Sell Icon" className="sellIcon" />
+      
         </div>
       </div>
     </div>

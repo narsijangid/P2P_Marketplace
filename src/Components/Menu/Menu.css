@@ -28,8 +28,9 @@
 }
 
 .profile__pic {
-  width: 35px;
-  height: 35px;
+  margin: 6px;
+  width: 30px;
+  height: 30px;
   object-fit: cover;
   border-radius: 50%;
   margin-right: 4px;
