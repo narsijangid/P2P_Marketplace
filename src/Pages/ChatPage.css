@@ -34,10 +34,10 @@
 /* Sidebar chat section */
 .chatPage__allChat {
     width: 35%;  /* Sidebar width */
-    height: 100%; /* Full height of container */
-    border: 1px solid rgba(0, 0, 0, 0.152);
-    border-radius: 7px;
-    background-color: #f8f8f8;
+    height: 100vh; /* Full height of container */
+
+
+
 }
 
 /* Main chat section */
