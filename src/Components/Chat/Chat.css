@@ -5,8 +5,6 @@
     width: 100vw;
     background-color: #f5f5f5;
     font-family: 'Arial', sans-serif;
-    position: relative;
-    overflow: hidden;
 }
 
 .chat__header {
@@ -24,6 +22,11 @@
 
 .chat__header:hover {
     cursor: pointer;
+}
+
+.chat__backArrow {
+    font-size: 24px;
+    color: #002f34;
 }
 
 .chat__header img {
@@ -47,7 +50,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-x: hidden;
 }
 
 .chat__message {
@@ -70,6 +72,7 @@
     background-color: #000000;
     align-self: flex-start;
     border-radius: 0 15px 15px 15px;
+    
 }
 
 .chat__messageText {
@@ -95,12 +98,10 @@
     align-items: center;
     padding: 10px 20px;
     background-color: #ffffff;
-    position: fixed;
+    position: sticky;
     bottom: 0;
-    width: 100%;
     z-index: 10;
     box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
 }
 
 .chat__input {
@@ -113,17 +114,6 @@
     background-color: #f9f9f9;
 }
 
-.chat__sendButton {
-    font-size: 24px;
-    color: #007bff;
-    margin-left: 10px;
-    cursor: pointer;
-    padding: 8px 15px;
-    border-radius: 50%;
-    background-color: #ff9500;
-    color: white;
-}
-
 .chat__inputContainer i {
     font-size: 24px;
     color: #007bff;
@@ -131,7 +121,6 @@
     cursor: pointer;
 }
 
-/* Handling mobile keyboard visibility */
 @media only screen and (max-width: 600px) {
     .chat__header {
         padding: 10px 15px;
@@ -154,13 +143,5 @@
 
     .chat__inputContainer i {
         font-size: 20px;
-    }
-
-    /* Add class when keyboard appears */
-    .keyboard-visible .chat__inputContainer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        z-index: 10;
     }
 }
