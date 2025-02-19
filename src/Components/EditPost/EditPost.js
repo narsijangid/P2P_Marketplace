@@ -134,7 +134,7 @@ const EditPost = () => {
                                 </div>
                                 <div className="post__photo">
                                     <h5>UPLOAD PHOTO</h5>
-                                    <img width="200px" max-height="400px" src={image ? URL.createObjectURL(image) : imageUrl} alt="" />
+                                    <img width="200px" loading="lazy" class="lazy-load" max-height="400px" src={image ? URL.createObjectURL(image) : imageUrl} alt="" />
                                     <div className="custom-file">
                                         <input type="file" onChange={(e) => setImage(e.target.files[0])} />
                                     </div>

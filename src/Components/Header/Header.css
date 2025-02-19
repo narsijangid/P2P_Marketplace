@@ -18,7 +18,28 @@
 
 
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
 
+/* Image Optimization */
+img {
+
+  display: block;
+  will-change: transform, opacity;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Lazy Loading */
+img[loading="lazy"] {
+  opacity: 0;
+}
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
 
 
 

@@ -88,7 +88,7 @@ const CreatePost = ({ category, subCategory, setSubCategory }) => {
             </div>
             <div className="post__photo">
                 <h5>UPLOAD PHOTO</h5>
-                <img width="200px" max-height="400px" src={image && URL.createObjectURL(image)} alt="" />
+                <img width="200px" max-height="400px" loading="lazy" class="lazy-load" src={image && URL.createObjectURL(image)} alt="" />
                 <div className="custom-file">
                     <input type="file" onChange={(e) => setImage(e.target.files[0])} className="custom-file-input" />
                     <label className="custom-file-label">Choose file</label>

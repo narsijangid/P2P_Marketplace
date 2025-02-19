@@ -31,7 +31,7 @@ function App() {
     <div>
       {loading ? (
         <div className="splash-screen">
-          <img src="https://imagizer.imageshack.com/img922/3706/Q1vJOp.png" alt="Splash Logo" className="splash-logo" />
+          <img src="https://imagizer.imageshack.com/img922/3706/Q1vJOp.png" loading="lazy" class="lazy-load" alt="Splash Logo" className="splash-logo" />
         </div>
       ) : (
         <Router>
