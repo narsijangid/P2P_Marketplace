@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import './Post.css';
 import db from '../../firebase';
 import Cards from '../Cards/Cards';
-import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Posts = () => {
   const [products, setProducts] = useState([]);
@@ -84,7 +83,7 @@ const Posts = () => {
       </div>
       {loading && (
         <div className="post__loadingComponent">
-          <PacmanLoader color={'#006772'} loading={loading} size={25} />
+          <img src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif" height="50px" width="50px" alt="Loading..." className="post__loaderGif" />
         </div>
       )}
     </div>

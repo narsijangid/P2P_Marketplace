@@ -10,7 +10,7 @@
     z-index: 2;
     box-shadow: 0px 0.5px 5px 0.5px rgb(186, 186, 186);
     align-items: center;
-    height: 50px;
+    height: 100px;
     
   }
 
@@ -34,12 +34,13 @@
   grid-template-columns: repeat(24, 1fr);
   column-gap: 1vw;
   padding: 10px;
-  background-color: whitesmoke;
+  background-color: #D2B48C;
   position: fixed;
   width: 100%;
   z-index: 2;
   box-shadow: 0px 0.5px 5px 0.5px rgb(186, 186, 186);
   align-items: center;
+  height: 70px;
 }
 
 .brandName {
@@ -56,13 +57,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 8px;
-  border: 2px solid #002f34;
+  border: 1px solid #D2B48C ;
   border-radius: 4px;
   background-color: white;
 }
 
 .placeSearch>button {
-  background-color: rgba(255, 255, 255, 0);
+  /* background-color: #00e5ff; */
   border: none;
   padding: 5px;
 }
@@ -72,8 +73,8 @@
 }
 
 .placeSearch ::selection {
-  border-color: #23e5db;
-  outline-color: #23e5db;
+  border-color: #D2B48C;
+  outline-color: #D2B48C;
 }
 
 .placeSearch>input {
@@ -108,14 +109,14 @@
 .productSearch__input {
   width: 100%;
   height: 100%;
-  border: 2px solid #002f34;
+  border: 1px solid #D2B48C;
   border-radius: 4px 0 0 4px;
   outline: none;
   padding-left: 10px;
 }
 
 .productSearch__input:focus {
-  border: 2px solid #23e5db;
+  border: 2px solid #D2B48C;
 }
 
 .searchAction {
@@ -123,10 +124,12 @@
   height: 100%;
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  background-color: #002f34;
+  background-color: #ffffff;
   border-radius: 0 4px 4px 0;
-  border: none;
+  border: solid #D2B48C 1px;
   outline: none;
 }
 
@@ -186,12 +189,19 @@
 }
 
 .userLogin__btn {
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: #002f34;
-  border-bottom: 2px solid #002f34;
+  font-size: 18px;
+padding: 14px;
+  font-weight: bold;
+  height: 29px;
+  background-color: rgb(255, 255, 255);
+display: flex;
+justify-content: center;
+align-items: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 4px;
 }
 
 /* 
@@ -217,8 +227,8 @@
 }
 
 .sellIcon{
-height: 40px;
-width:40px;
+height: 71px;
+width:71px;
 }
 
 .header__sellBtn .all {
@@ -311,7 +321,7 @@ width:40px;
   .product__SearchContainer {
     grid-column: span;
     grid-row-start: 2;
-    height: 35px;
+    height: 46px;
   }
   .brandName {
     grid-row: 1;
