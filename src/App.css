@@ -4,6 +4,17 @@
     box-sizing: border-box;
 }
 
+.splash-logo {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 
 @media only screen and (max-width: 768px) {
