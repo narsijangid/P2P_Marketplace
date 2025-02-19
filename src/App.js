@@ -1,56 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
 
-import Home from './Pages/Home';
-import Create from './Pages/Create';
-import ProductPage from './Pages/ProductPage';
-import MyAdsPage from './Pages/MyAdsPage';
-import SearchPage from './Pages/SearchPage';
-import PageNotFound from './Pages/PageNotFound';
-import ChatPage from './Pages/ChatPage';
-import MyProfilePage from './Pages/MyProfilePage';
-import EditPage from './Pages/EditPage';
-import SellerProfile from './Pages/SellerProfile';
-import EditPostPage from './Pages/EditPostPage';
+// ✅ Lazy Loading Components for Faster Load Time
+const Home = lazy(() => import('./Pages/Home'));
+const Create = lazy(() => import('./Pages/Create'));
+const ProductPage = lazy(() => import('./Pages/ProductPage'));
+const MyAdsPage = lazy(() => import('./Pages/MyAdsPage'));
+const SearchPage = lazy(() => import('./Pages/SearchPage'));
+const PageNotFound = lazy(() => import('./Pages/PageNotFound'));
+const ChatPage = lazy(() => import('./Pages/ChatPage'));
+const MyProfilePage = lazy(() => import('./Pages/MyProfilePage'));
+const EditPage = lazy(() => import('./Pages/EditPage'));
+const SellerProfile = lazy(() => import('./Pages/SellerProfile'));
+const EditPostPage = lazy(() => import('./Pages/EditPostPage'));
+
+// ✅ Preloading pages in advance for faster navigation
+const preloadRoutes = () => {
+  import('./Pages/Home');
+  import('./Pages/Create');
+  import('./Pages/ProductPage');
+};
+
+// Call preload on initial load
+preloadRoutes();
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500); // 1.5 seconds splash duration
-  }, []);
-
   return (
     <div>
-      {loading ? (
-        <div className="splash-screen">
-          <img src="https://imagizer.imageshack.com/img922/3706/Q1vJOp.png" loading="lazy" class="lazy-load" alt="Splash Logo" className="splash-logo" />
-        </div>
-      ) : (
-        <Router>
+      <Router>
+        <Suspense fallback={<div className="loading">Loading...</div>}>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/create" component={Create} />
             <Route path="/item/:productId" component={ProductPage} />
             <Route path="/search/:searchId" component={SearchPage} />
-            <Route path='/myads' component={MyAdsPage} />
-            <Route path='/myfavorites' component={MyAdsPage} />
-            <Route path='/chat/:chatId' component={ChatPage} />
-            <Route path='/myprofile' component={MyProfilePage} />
-            <Route path='/editprofile/:editInfo' component={EditPage} />
-            <Route path='/profile/:profileId' component={SellerProfile} />
-            <Route path='/editpost/:postId' component={EditPostPage} />
-            <Route component={PageNotFound} path='*' />
+            <Route path="/myads" component={MyAdsPage} />
+            <Route path="/myfavorites" component={MyAdsPage} />
+            <Route path="/chat/:chatId" component={ChatPage} />
+            <Route path="/myprofile" component={MyProfilePage} />
+            <Route path="/editprofile/:editInfo" component={EditPage} />
+            <Route path="/profile/:profileId" component={SellerProfile} />
+            <Route path="/editpost/:postId" component={EditPostPage} />
+            <Route component={PageNotFound} />
           </Switch>
-        </Router>
-      )}
+        </Suspense>
+      </Router>
     </div>
   );
 }
