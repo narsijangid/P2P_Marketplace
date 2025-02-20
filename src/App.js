@@ -29,7 +29,7 @@ function App() {
   return (
     <div>
       <Router>
-        <Suspense fallback={<div className="loading">Loading...</div>}>
+        <Suspense fallback={<div className="loading">.</div>}>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/create" component={Create} />
