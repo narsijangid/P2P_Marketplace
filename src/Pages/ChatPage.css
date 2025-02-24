@@ -13,6 +13,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+  
 }
 
 /* Ensure main container fills the screen */
@@ -20,6 +21,7 @@
     display: flex;
     flex: 1;  /* This ensures it takes up the remaining space */
     width: 100%;
+    
 }
 
 /* The container that holds the chat and the sidebar */
@@ -65,6 +67,7 @@
         width: 95%;
         height: 90vh;
         margin: 0;
+        
     }
     .chatPage__main {
         padding: 0;

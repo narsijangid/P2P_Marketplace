@@ -72,10 +72,10 @@ const CreatePost = ({ category, subCategory, setSubCategory }) => {
             <h6>SELECTED CATEGORY</h6>
             <div className="post__changeCategory">
                 <span>{category + ' / ' + subCategory}</span>
-                <span onClick={() => setSubCategory(null)}>Change</span>
+                <span className="Changedataa" onClick={() => setSubCategory(null)}>Change</span>
             </div>
             <div className="post__details">
-                <h5>INCLUDE SOME DETAILS</h5>
+                <h6>INCLUDE SOME DETAILS</h6>
                 <label htmlFor="">Ad Title*</label>
                 <input ref={titleRef} type="text" name="" id="" />
                 <label>Description*</label>
@@ -88,7 +88,7 @@ const CreatePost = ({ category, subCategory, setSubCategory }) => {
             </div>
             <div className="post__photo">
                 <h5>UPLOAD PHOTO</h5>
-                <img width="200px" max-height="400px" loading="lazy" class="lazy-load" src={image && URL.createObjectURL(image)} alt="" />
+                <img width="200px" max-height="400px"  src={image && URL.createObjectURL(image)} alt="" />
                 <div className="custom-file">
                     <input type="file" onChange={(e) => setImage(e.target.files[0])} className="custom-file-input" />
                     <label className="custom-file-label">Choose file</label>
@@ -114,7 +114,7 @@ const CreatePost = ({ category, subCategory, setSubCategory }) => {
                 </div>
             </div>
             <div className="post__button">
-                <button onClick={handleSubmit}>Post now</button>
+                <button className="Postnowbutton" onClick={handleSubmit}>Post now</button>
             </div>
         </div>
     );

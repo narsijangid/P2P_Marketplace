@@ -200,7 +200,13 @@ const Chat = () => {
                 ((chatId !== 'chatid') && !forbidden) &&
                 <form onSubmit={sendText} className="chat__inputContainer">
                     <input onChange={(e) => setText(e.target.value)} className="chat__input" type="text" value={text} placeholder="Start typing" />
-                    <i onClick={sendText} className="bi bi-telegram"></i>
+                    <img 
+  src="https://cdn-icons-png.freepik.com/256/10924/10924424.png?semt=ais_hybrid" 
+  alt="Telegram Icon" 
+  onClick={sendText} 
+  style={{ cursor: 'pointer',padding:'4px', width: '44px', height: '44px' }} 
+/>
+
                 </form>
             }
         </div>

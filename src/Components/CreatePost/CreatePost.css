@@ -41,27 +41,48 @@ input {
     cursor: pointer;
 }
 
-.post__details {
+.post__details, .post__price, .post__location {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 80%;
     margin: 10px 0 0 30px;
 }
 
-.post__details>h5 {
-    font-size: 20px;
+.post__details h6, .post__price h5, .post__location h5 {
+    font-size: 22px;
     font-weight: 600;
     color: #002f34;
+    margin-bottom: 10px;
 }
 
-.post__price {
-    display: flex;
-    flex-direction: column;
+/* Stylish Input Fields */
+.post__details input, 
+.post__details textarea, 
+.post__price input, 
+.post__location input {
     width: 100%;
-    margin: 20px 0;
-    padding: 35px 0 25px 30px;
-    border-bottom: 1px solid rgba(0, 47, 52, 0.2);
-    border-top: 1px solid rgba(0, 47, 52, 0.2);
+    padding: 12px;
+    margin-top: 5px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+/* Input Focus Effect */
+.post__details input:focus, 
+.post__details textarea:focus, 
+.post__price input:focus, 
+.post__location input:focus {
+    border-color: #00796b;
+    box-shadow: 0 0 8px rgba(0, 121, 107, 0.2);
+}
+
+/* Placeholder Styling */
+.post__location input::placeholder {
+    color: #777;
+    font-style: italic;
 }
 
 .post__price>h5 {
@@ -81,12 +102,42 @@ input {
     padding: 10px 0 30px 30px;
     border-bottom: 1px solid rgba(0, 47, 52, 0.2);
 
+
+}
+
+
+
+
+.Changedataa{
+    display: inline-block; /* Taaki width aur height set ho sake */
+    padding: 4px 9px;
+    background-color: #d3af88; /* Button jaisa color */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    user-select: none; /* Text select na ho */
+}
+
+.Postnowbutton{
+    display: inline-block; /* Taaki width aur height set ho sake */
+    padding: 8px 17px;
+    background-color: #d3af88; /* Button jaisa color */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    user-select: none; /* Text select na ho */
 }
 
 .post__photo>h5 {
     font-size: 20px;
     font-weight: 600;
-    color: #002f34;
+    color: #ffffff;
 }
 .post__photo > div {
     width: 50%;
@@ -96,8 +147,8 @@ input {
 .post__location {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 30px 0 30px 30px;
+    width: 80%;
+    padding: 0px 0 30px 0px;
     border-bottom: 1px solid rgba(0, 47, 52, 0.2);
 }
 .post__location > h5 {
@@ -153,7 +204,7 @@ input {
     border: none;
     padding: 10px 20px;
     color: #ffffff;
-    background-color: #045f6a;
+  
     border-radius: 5px;
 }
 

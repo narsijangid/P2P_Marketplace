@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import db, { auth } from '../../firebase';
-import Logo from '../../olx-logo.png';
 import './Login.css';
 
 function Login({ setLoginPopOn }) {
-  const [err, setErr] = useState(null);
+  const [error, setError] = useState(null);
   const [isSignUp, setIsSignUp] = useState(false);
   const phoneRef = useRef(null);
   const usernameRef = useRef(null);
@@ -13,153 +12,118 @@ function Login({ setLoginPopOn }) {
   const passwordRef = useRef(null);
   const history = useHistory();
 
-
- 
-
-
-  const handleClick = (e) => {
-    e.preventDefault()
-    if (!isSignUp) {
-      auth.signInWithEmailAndPassword(
-        emailRef.current.value,
-        passwordRef.current.value
-      ).then(() => setLoginPopOn(false)
-      ).catch((error) => {
-        setErr(error.message)
-      })
-    } else {
-      auth.createUserWithEmailAndPassword(
-        emailRef.current.value,
-        passwordRef.current.value
-      ).then((result) => {
-        result.user.updateProfile({ displayName: usernameRef.current.value }).then(() => {
-          console.log(result.user.uid);
-          db.doc(`/users/${result.user.uid}`).set({
-            id: result.user.uid,
-            username: usernameRef.current.value,
-            phone: phoneRef.current.value,
-            createdAt : new Date(),
-            about:null,
-            photourl:'https://cdn-icons-png.flaticon.com/512/18388/18388709.png'
-          }).then(() => {
-            setLoginPopOn(false)
-            setIsSignUp(false)
-          })
-        })
-      }).catch((error) => {
-        setErr(error.message)
-      })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!isSignUp) {
+        // Login
+        await auth.signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value);
+        setLoginPopOn(false);
+      } else {
+        // Sign Up
+        const result = await auth.createUserWithEmailAndPassword(emailRef.current.value, passwordRef.current.value);
+        await result.user.updateProfile({ displayName: usernameRef.current.value });
+        await db.doc(`/users/${result.user.uid}`).set({
+          id: result.user.uid,
+          username: usernameRef.current.value,
+          phone: phoneRef.current.value,
+          createdAt: new Date(),
+          about: null,
+          photourl: 'https://cdn-icons-png.flaticon.com/512/18388/18388709.png',
+        });
+        setLoginPopOn(false);
+        setIsSignUp(false);
+      }
+    } catch (err) {
+      setError(err.message);
     }
-  }
+  };
+
   const navigateBack = () => {
     if (isSignUp) {
-      setIsSignUp(false)
+      setIsSignUp(false);
     } else {
-      setLoginPopOn(false)
-      history.push('/')
+      setLoginPopOn(false);
+      history.push('/');
     }
-  }
+  };
 
-  const loginClose = () => {
-    setLoginPopOn(false)
-    setIsSignUp(false)
-    history.push('/')
-  }
+  const closeLogin = () => {
+    setLoginPopOn(false);
+    setIsSignUp(false);
+    history.push('/');
+  };
 
-
-  let popUpRef = useRef();
-  useEffect(() => { 
-      let handler = (event) => {
-        if (!popUpRef.current.contains(event.target)) {
-          setLoginPopOn(false)
-          setIsSignUp(false)
-        }
+  const popUpRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popUpRef.current && !popUpRef.current.contains(event.target)) {
+        setLoginPopOn(false);
+        setIsSignUp(false);
       }
-      document.addEventListener("mousedown", handler);
-      return () => {
-        document.removeEventListener("mousedown", handler)
-      }
-  })
-
-
-
-
-
-
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [setLoginPopOn]);
 
   return (
     <div className="login">
       <div ref={popUpRef} className="login__contents">
-        <div className="login__icons">
+        <div className="login__header">
           <div onClick={navigateBack} className="back__icon">
             <i className="bi bi-arrow-left"></i>
           </div>
-          <div onClick={loginClose} className="close__icon">
+          <div onClick={closeLogin} className="close__icon">
             <i className="bi bi-x-lg"></i>
           </div>
         </div>
-        <img onClick={() => history.push('/')} className="login__logo" src={Logo} alt="error loading"/>
-        <h3>{!isSignUp ?
-          "Login"
-          :
-          "SignUp"
-        }
-        </h3>
-        <p className="login__error" >{err && ` !!!  ${err}`}</p>
-        <form className="login__form">
+        <img
+          onClick={() => history.push('/')}
+          className="login__logo"
+          src="./dazuuu.jpg"
+          alt="Logo"
+        />
+        <h3>{isSignUp ? 'Sign Up' : 'Login'}</h3>
+        {error && <p className="login__error">!!! {error}</p>}
+        <form className="login__form" onSubmit={handleSubmit}>
           <input
             className="input"
             type="email"
             ref={emailRef}
             placeholder="Enter email"
+            required
           />
           <input
             className="input"
             type="password"
             ref={passwordRef}
             placeholder="Password"
+            required
           />
-          {
-            isSignUp
-            &&
-            <input
-              className="input"
-              type="text"
-              name="name"
-              // value={username}
-              ref={usernameRef}
-              placeholder="Enter name"
-            // onChange={e => setUsername(e.target.value)}
-            />
-          }
-          {isSignUp &&
-            <input
-              className="input"
-              type="number"
-              name="phone"
-              // value={phone}
-              ref={phoneRef}
-              placeholder="Enter mobile no."
-            //onChange={e => setPhone(e.target.value)}
-            />
-          }
-
-          <button onClick={handleClick} className="login__button">
-            {
-              !isSignUp ?
-                "Login"
-                :
-                "SignUp"
-            }
+          {isSignUp && (
+            <>
+              <input
+                className="input"
+                type="text"
+                ref={usernameRef}
+                placeholder="Enter name"
+                required
+              />
+              <input
+                className="input"
+                type="tel"
+                ref={phoneRef}
+                placeholder="Enter mobile no."
+                required
+              />
+            </>
+          )}
+          <button type="submit" className="login__button">
+            {isSignUp ? 'Sign Up' : 'Login'}
           </button>
         </form>
         <p className="signup__button" onClick={() => setIsSignUp(!isSignUp)}>
-          {
-            !isSignUp ?
-              "New to OLX? Signup"
-              :
-              "Already a user? Login"
-          }
+          {isSignUp ? 'Already a user? Login' : 'New to Dazzlone? Sign Up'}
         </p>
       </div>
     </div>

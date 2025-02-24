@@ -36,17 +36,27 @@ const Menu = () => {
           <i className="bi bi-bell"></i>
         </div> */}
         <div ref={menuRef} className="popover__container">
-          <div onClick={() => setPopOn(!popOn)} className="pop__btn">
-            <img className="profile__pic" src={userDetails?.photourl} alt="img" />
-            <div className={popOn ? 'menu__arrow' : "menu__arrowDown"}>
-              <Arrow></Arrow>
-            </div>
-          </div>
+        <div onClick={() => setPopOn(!popOn)} className="pop__btn">
+  <img 
+    className="profile__pic" 
+    src={userDetails?.photourl || "https://cdn-icons-png.flaticon.com/512/18388/18388709.png"} 
+    alt="img" 
+    onError={(e) => { 
+      e.target.onerror = null; 
+      e.target.src = "/default-profile.png"; // Default image on error
+    }}
+  />
+  <div className={popOn ? 'menu__arrow' : "menu__arrowDown"}>
+    <Arrow />
+  </div>
+</div>
+
+
           <div className={popOn ? "pop__active" : "pop__disabled"}>
             <div className="arrow-up"></div>
             <div className="pop__contents">
               <div className="menu__profile">
-                <img src={userDetails?.photourl} alt="img" />
+                <img src={userDetails?.photourl || "https://cdn-icons-png.flaticon.com/512/18388/18388709.png"} alt="img" />
                 <div onClick={() => history.push('/editProfile/info')} className="menu__profileDiv">
                   <h6>Hello,</h6>
                   <h4>{userDetails?.username}</h4>
@@ -63,7 +73,7 @@ const Menu = () => {
                   <div className="profileuncompleted__div"></div>
                   <div className="profileuncompleted__div"></div>
                 </div>
-                <p>OLX is built on trust. Help other people get to know you. Tell them about the things you like. </p>
+                <p>Dazzlone is built on trust. Help other people get to know you. Tell them about the things you like. </p>
               </div>
               <div onClick={() => history.push('/myads')} className="menu__section">
                 <i className="bi bi-files"></i>
@@ -87,7 +97,7 @@ const Menu = () => {
               </div>
               <div className="menu__section horizontal__line">
                 <i className="bi bi-download"></i>
-                <h5>Install OLX Lite app</h5>
+               
               </div>
               <div onClick={() => {
                 auth.signOut()
