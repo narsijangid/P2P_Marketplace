@@ -80,7 +80,7 @@ function Login({ setLoginPopOn }) {
         <img
           onClick={() => history.push('/')}
           className="login__logo"
-          src="./dazuuu.jpg"
+          src="https://i.ibb.co/hJ5gYB7x/imresizer-1739692796139-png.jpg"
           alt="Logo"
         />
         <h3>{isSignUp ? 'Sign Up' : 'Login'}</h3>
