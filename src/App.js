@@ -1,5 +1,5 @@
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useEffect, Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 
 // ✅ Lazy Loading Components for Faster Load Time
@@ -25,10 +25,34 @@ const preloadRoutes = () => {
 // Call preload on initial load
 preloadRoutes();
 
+// ✅ Back Button Handling for WebView
+const BackButtonHandler = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      if (window.history.length > 1) {
+        history.goBack(); // React Router ka use karke back navigation
+      } else {
+        window.ReactNativeWebView?.postMessage('EXIT_APP'); // WebView se exit request bhejna
+      }
+    };
+
+    window.onpopstate = handleBackButton;
+    return () => {
+      window.onpopstate = null; // Cleanup when component unmounts
+    };
+  }, [history]);
+
+  return null;
+};
+
 function App() {
   return (
     <div>
       <Router>
+        <BackButtonHandler /> {/* WebView ke liye back button support */}
         <Suspense fallback={<div className="loading">.</div>}>
           <Switch>
             <Route exact path="/" component={Home} />
