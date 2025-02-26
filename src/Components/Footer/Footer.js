@@ -45,7 +45,7 @@ function Footer() {
         </div>
         <div className="footer__cards">
           <span className="heading">ABOUT US</span>
-          <span onClick={handleClick} style={{ cursor: "pointer", color: "blue" }}>
+          <span onClick={handleClick} >
           About Dazzlone
     </span>
     
