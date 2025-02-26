@@ -3,6 +3,13 @@ import React from 'react';
 import './Footer.css';
 
 function Footer() {
+
+  const handleClick = () => {
+    window.location.href = "https://median.co/";
+  };
+
+
+
   return (
     <div className="footerParentDiv">
       <div className="footer__banner">
@@ -38,7 +45,10 @@ function Footer() {
         </div>
         <div className="footer__cards">
           <span className="heading">ABOUT US</span>
-          <span>About Dazzlone</span>
+          <span onClick={handleClick} style={{ cursor: "pointer", color: "blue" }}>
+          About Dazzlone
+    </span>
+    
           <span>Careers</span>
           <span>Contact Us</span>
         </div>
