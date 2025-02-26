@@ -6,7 +6,7 @@ import './Login.css';
 function Login({ setLoginPopOn }) {
   const [error, setError] = useState(null);
   const [isSignUp, setIsSignUp] = useState(false);
-  const [imageoflogo,setImageoflogo] = useState("https://i.ibb.co/hJ5gYB7x/imresizer-1739692796139-png.jpg")
+  const [imageoflogo,setImageoflogo] = useState("https://cdn3d.iconscout.com/3d/free/thumb/free-adobe-illustrator-3d-icon-download-in-png-blend-fbx-gltf-file-formats--logo-photoshop-ai-creative-software-app-pack-appliances-icons-9395200.png?f=webp")
   const phoneRef = useRef(null);
   const usernameRef = useRef(null);
   const emailRef = useRef(null);

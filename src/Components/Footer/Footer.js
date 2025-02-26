@@ -5,9 +5,9 @@ import './Footer.css';
 function Footer() {
 
   const handleRedirect = () => {
-    history.push('/about'); // ✅ Correct navigation
+    window.location.href = '/about'; // ✅ Correct path
   };
-
+  
 
 
   return (
