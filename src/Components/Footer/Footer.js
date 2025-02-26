@@ -5,7 +5,7 @@ import './Footer.css';
 function Footer() {
 
   const handleRedirect = () => {
-    window.location.href = './AboutUs'; // Redirect to the About Us page
+    history.push('/about'); // ✅ Correct navigation
   };
 
 
