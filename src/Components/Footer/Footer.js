@@ -3,13 +3,6 @@ import React from 'react';
 import './Footer.css';
 
 function Footer() {
-
-  const handleRedirect = () => {
-    window.location.href = '/about'; // ✅ Correct path
-  };
-  
-
-
   return (
     <div className="footerParentDiv">
       <div className="footer__banner">
@@ -45,9 +38,7 @@ function Footer() {
         </div>
         <div className="footer__cards">
           <span className="heading">ABOUT US</span>
-          <span onClick={handleRedirect}>
-          About Dazzlone
-        </span>
+          <span>About Dazzlone</span>
           <span>Careers</span>
           <span>Contact Us</span>
         </div>

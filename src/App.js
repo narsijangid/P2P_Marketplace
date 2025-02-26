@@ -14,8 +14,6 @@ const MyProfilePage = lazy(() => import('./Pages/MyProfilePage'));
 const EditPage = lazy(() => import('./Pages/EditPage'));
 const SellerProfile = lazy(() => import('./Pages/SellerProfile'));
 const EditPostPage = lazy(() => import('./Pages/EditPostPage'));
-const AboutUs = lazy(() => import('./Pages/AboutUs'));
-
 
 // ✅ Preloading pages in advance for faster navigation
 const preloadRoutes = () => {
@@ -44,8 +42,6 @@ function App() {
             <Route path="/editprofile/:editInfo" component={EditPage} />
             <Route path="/profile/:profileId" component={SellerProfile} />
             <Route path="/editpost/:postId" component={EditPostPage} />
-            <Route path="/about" component={AboutUs} />
-
             <Route component={PageNotFound} />
           </Switch>
         </Suspense>

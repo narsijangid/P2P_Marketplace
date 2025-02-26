@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
 export default function OlxLogo() {
-  const [imageUrl, setImageUrl] = useState("https://i.ibb.co/hJ5gYB7x/imresizer-1739692796139-png.jpg");
+  const [imageUrl, setImageUrl] = useState(
+    "https://your-reliable-host.com/olx-logo.png" // Use your server or Cloudinary URL
+  );
 
   return (
     <img
@@ -9,7 +11,7 @@ export default function OlxLogo() {
       alt="Dazzlone Logo"
       width="33px"
       height="33px"
-      onError={() => setImageUrl("https://static.thenounproject.com/png/3444048-200.png")} // Backup image
+      onError={() => setImageUrl("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...")} // Base64 fallback
     />
   );
 }
