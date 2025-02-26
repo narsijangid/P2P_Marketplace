@@ -2,7 +2,7 @@ import React, { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 
-// ✅ Lazy Loading Components for Faster Load Time
+// ✅ Lazy Loading Components
 const Home = lazy(() => import('./Pages/Home'));
 const Create = lazy(() => import('./Pages/Create'));
 const ProductPage = lazy(() => import('./Pages/ProductPage'));
@@ -15,33 +15,35 @@ const EditPage = lazy(() => import('./Pages/EditPage'));
 const SellerProfile = lazy(() => import('./Pages/SellerProfile'));
 const EditPostPage = lazy(() => import('./Pages/EditPostPage'));
 
-// ✅ Preloading pages in advance for faster navigation
+// ✅ Preload Important Pages
 const preloadRoutes = () => {
   import('./Pages/Home');
   import('./Pages/Create');
   import('./Pages/ProductPage');
 };
-
-// Call preload on initial load
 preloadRoutes();
 
-// ✅ Back Button Handling for WebView
+// ✅ Back Button Handling
 const BackButtonHandler = () => {
   const history = useHistory();
 
   useEffect(() => {
+    // ✅ Custom history entry add kar raha hu taki WebView ka back button kaam kare
+    window.history.pushState(null, '', window.location.href);
+
     const handleBackButton = (event) => {
       event.preventDefault();
-      if (window.history.length > 1) {
-        history.goBack(); // React Router ka use karke back navigation
+
+      if (window.location.pathname !== '/') {
+        history.goBack(); // ✅ Pichle page par wapas jane ka function
       } else {
-        window.ReactNativeWebView?.postMessage('EXIT_APP'); // WebView se exit request bhejna
+        window.ReactNativeWebView?.postMessage('EXIT_APP'); // ✅ WebView ko exit ka signal bhejna
       }
     };
 
     window.onpopstate = handleBackButton;
     return () => {
-      window.onpopstate = null; // Cleanup when component unmounts
+      window.onpopstate = null; // Cleanup effect
     };
   }, [history]);
 
@@ -52,7 +54,7 @@ function App() {
   return (
     <div>
       <Router>
-        <BackButtonHandler /> {/* WebView ke liye back button support */}
+        <BackButtonHandler />
         <Suspense fallback={<div className="loading">.</div>}>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -75,3 +77,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
+// $env:NODE_OPTIONS="--openssl-legacy-provider"
