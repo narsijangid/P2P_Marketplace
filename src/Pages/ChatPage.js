@@ -30,9 +30,9 @@ const ChatPage = () => {
                 <div onClick={() => history.goBack()} className="createBack__icon">
                     <i className="bi bi-arrow-left"></i>
                 </div>
-                <div onClick={() => history.push('/')} className="create__brandName">
+                {/* <div onClick={() => history.push('/')} className="create__brandName">
                     <OlxLogo />
-                </div>
+                </div> */}
             </header>
             <div className="chatPage__main">
                 <div className="chatPage__container">

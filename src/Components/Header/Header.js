@@ -44,9 +44,9 @@ function Header() {
 
   return (
     <div className="header__main">
-      <div onClick={() => history.push('/')} className="brandName">
+      {/* <div onClick={() => history.push('/')} className="brandName">
         <OlxLogo />
-      </div>
+      </div> */}
       <form className="placeSearch" onSubmit={handleSearch} action="">
         <button type="submit">
           <Search></Search>

@@ -24,9 +24,9 @@ const Create = () => {
           <div onClick={navigateBack} className="createBack__icon">
             <i className="bi bi-arrow-left"></i>
           </div>
-          <div onClick={() => history.push('/')} className="create__brandName">
+          {/* <div onClick={() => history.push('/')} className="create__brandName">
             <OlxLogo />
-          </div>
+          </div> */}
         </header>
         <div className="create__main">
           <div>
