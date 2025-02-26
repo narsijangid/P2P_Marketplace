@@ -42,6 +42,7 @@ function App() {
             <Route path="/editprofile/:editInfo" component={EditPage} />
             <Route path="/profile/:profileId" component={SellerProfile} />
             <Route path="/editpost/:postId" component={EditPostPage} />
+            <Route path="/about" element={<AboutUs />} />
             <Route component={PageNotFound} />
           </Switch>
         </Suspense>
