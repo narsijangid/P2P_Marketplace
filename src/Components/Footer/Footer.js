@@ -5,10 +5,25 @@ import './Footer.css';
 function Footer() {
 
   const handleClick = () => {
-    window.location.href = "https://median.co/";
+    window.location.href = "https://about.free4talk.xyz/";
+  };
+
+  const  handleClickdisclaimer = () => {
+    window.location.href = "https://about.free4talk.xyz/#disclaimer";
+  };
+
+  const  handleClickHelp = () => {
+    window.location.href = "https://about.free4talk.xyz/#help";
+  };
+
+  const  handleClickprivacy = () => {
+    window.location.href = "https://about.free4talk.xyz/#privacy";
   };
 
 
+  const  handleClickcontact = () => {
+    window.location.href = "https://about.free4talk.xyz/#contact";
+  };
 
   return (
     <div className="footerParentDiv">
@@ -49,14 +64,13 @@ function Footer() {
           About Dazzlone
     </span>
     
-          <span>Careers</span>
-          <span>Contact Us</span>
+          <span onClick={handleClickcontact}>Contact Us</span>
         </div>
         <div className="footer__cards">
           <span className="heading">Dazzlone</span>
-          <span>Help</span>
-          <span>Sitemap</span>
-          <span>Legal & Privacy information</span>
+          <span onClick={handleClickHelp}>Help</span>
+          <span onClick={handleClickdisclaimer}>Disclaimer</span>
+          <span onClick={handleClickprivacy}>Legal & Privacy information</span>
         </div>
         <div className="footer__cards footer__social">
           <div>
