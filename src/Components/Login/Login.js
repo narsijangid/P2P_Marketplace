@@ -6,11 +6,13 @@ import './Login.css';
 function Login({ setLoginPopOn }) {
   const [error, setError] = useState(null);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [imageoflogo,setImageoflogo] = useState("https://i.ibb.co/hJ5gYB7x/imresizer-1739692796139-png.jpg")
   const phoneRef = useRef(null);
   const usernameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const history = useHistory();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,8 +82,9 @@ function Login({ setLoginPopOn }) {
         <img
           onClick={() => history.push('/')}
           className="login__logo"
-          src="https://i.ibb.co/hJ5gYB7x/imresizer-1739692796139-png.jpg"
+          src={imageoflogo}
           alt="Logo"
+          onError={()=> setImageoflogo("https://static.thenounproject.com/png/3444048-200.png")}
         />
         <h3>{isSignUp ? 'Sign Up' : 'Login'}</h3>
         {error && <p className="login__error">!!! {error}</p>}
