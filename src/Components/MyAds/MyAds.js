@@ -6,6 +6,7 @@ import db from '../../firebase';
 import { AuthContext } from '../../store/Context';
 import Cards from '../Cards/Cards';
 import './MyAds.css';
+import { MdOutlineAddChart } from "react-icons/md";
 
 
 const MyAds = () => {
@@ -43,18 +44,13 @@ const MyAds = () => {
             {
                 (myAds.length === 0) && (
                     <div className="myads__noads">
-                        <h1>Sorry, No ads to display</h1>
+                        <h1>No post yet !!</h1>
                         <h3>Start selling</h3>
                         <div onClick={() => history.push('/create')}>
-                            <div className="myads__sellMenu">
-                                <SellButton ></SellButton>
-                                <div className="myads__sellMenuContent">
-                                    <SellButtonPlus></SellButtonPlus>
-                                    <span>SELL</span>
-                                </div>
+                        <MdOutlineAddChart className='addpostnow'/>
                             </div>
                         </div>
-                    </div>
+                  
                 )
             }
 

@@ -101,7 +101,7 @@ const CreatePost = ({ category, subCategory, setSubCategory }) => {
             <div className="post__userDetails">
                 <h5>REVIEW YOUR DETAILS</h5>
                 <div>
-                    <img className="post__userPhoto" src="https://cdn-icons-png.flaticon.com/512/18388/18388709.png" alt="img" />
+                    <img className="post__userPhoto" src="https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png" alt="img" />
                     <div>
                         <div>
                             <span>Name: </span>

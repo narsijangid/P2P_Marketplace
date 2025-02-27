@@ -145,7 +145,7 @@ function View() {
             </p>
             <i className="bi bi-chevron-right"></i>
           </div>
-          <p className="item__sellerContactNum">Contact No: {sellerDetails.phone}</p>
+          {/* <p className="item__sellerContactNum">Contact No: {sellerDetails.phone}</p> */}
           {
             (user?.uid === sellerDetails.id) ?
               <button onClick={handleChatClick} disabled className="item__chatBtn">Ask questions your self</button>

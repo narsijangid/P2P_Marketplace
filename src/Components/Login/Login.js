@@ -29,7 +29,7 @@ function Login({ setLoginPopOn }) {
           phone: phoneRef.current.value,
           createdAt: new Date(),
           about: null,
-          photourl: 'https://cdn-icons-png.flaticon.com/512/18388/18388709.png',
+          photourl: 'https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png',
         });
         setLoginPopOn(false);
         setIsSignUp(false);

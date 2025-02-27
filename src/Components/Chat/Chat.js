@@ -178,7 +178,7 @@ const Chat = () => {
                     <>
                         {
                             (chatId !== 'chatid') &&
-                            <h2 className="chat__warning">Sorry, Chat is Forbidden...</h2>
+                            <h2 className="chat__warning">Loading...</h2>
                         }
                     </>
                     :

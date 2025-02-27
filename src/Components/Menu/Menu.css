@@ -167,7 +167,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 8.79%;
+  height: 7.79%;
   cursor: pointer;
 }
 
@@ -196,6 +196,32 @@
 .horizontal__line {
   border-bottom: 1px solid rgb(189, 189, 189);
 }
+.babuhichat{
+  margin-left: 10px;
+  height: 30px;
+  color: #D2B48C;
+  width: 30px;
+  margin-bottom: 4px;
+  margin-right: 10px;
+}
+
+.favoritbabo{
+  margin-left: 10px;
+  height: 30px;
+  color: #D2B48C;
+  width: 30px;
+  margin-bottom: 4px;
+  margin-right: 10px;
+}
+
+.chatboboico{
+  margin-left: 10px;
+  height: 30px;
+  color: #D2B48C;
+  width: 30px;
+  margin-bottom: 4px;
+  margin-right: 10px;
+}
 
 
 
@@ -212,4 +238,61 @@
   .arrow-up {
     display: none;
   }
+}
+
+
+
+
+.chatbot-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.chatbot-popup-content {
+  background: white;
+  width: 80%;
+  max-width: 600px;
+  height: 80%;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden; /* Hide scrollbar */
+}
+
+.chatbot-popup-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  padding-bottom: 4px;
+  background: #ffffff; /* Blue color */
+  color: rgb(255, 0, 0);
+  border: none;
+  border-radius: 20%; /* Circular button */
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001; /* Ensure it's above the iframe */
+}
+
+.close-btn:hover {
+  background: #ffffff; /* Darker blue on hover */
 }

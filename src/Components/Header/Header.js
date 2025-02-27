@@ -9,43 +9,46 @@ import { useHistory, useLocation } from 'react-router';
 import { AuthContext } from '../../store/Context';
 import Menu from '../Menu/Menu';
 import Login from '../Login/Login';
-
-
-
+import { BsChatDotsFill } from "react-icons/bs";
+import { RiRobot3Fill } from "react-icons/ri";
+import { MdAddBox } from "react-icons/md";
 
 function Header() {
   const { user } = useContext(AuthContext);
   const history = useHistory();
   const [loginPopOn, setLoginPopOn] = useState(false);
+  const [chatbotPopup, setChatbotPopup] = useState(false); // State for chatbot popup
   const location = useLocation();
   const [searchInput, setSearchInput] = useState('');
   const [locationSearch, setLocationSearch] = useState('');
 
-
   useEffect(() => {
     if (location?.state?.from === 'create') {
-      setLoginPopOn(true)
+      setLoginPopOn(true);
     }
-  }, [location?.state?.from])
-
+  }, [location?.state?.from]);
 
   const handleSellClick = () => {
-    (user ? history.push('/create') : setLoginPopOn(true))
-  }
+    user ? history.push('/create') : setLoginPopOn(true);
+  };
 
   const handleLogin = () => {
     setLoginPopOn(!loginPopOn);
-  }
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
-    history.push(`/search/search?${searchInput} ${locationSearch}`)
-  }
+    history.push(`/search/search?${searchInput} ${locationSearch}`);
+  };
 
+  const toggleChatbotPopup = () => {
+    setChatbotPopup(!chatbotPopup); // Toggle chatbot popup
+  };
 
   return (
     <div className="header__main">
       <div onClick={() => history.push('/')} className="brandName">
-      
+        {/* Brand Logo */}
       </div>
       <form className="placeSearch" onSubmit={handleSearch} action="">
         <button type="submit">
@@ -55,10 +58,11 @@ function Header() {
       </form>
       <div className="product__SearchContainer">
         <form className="productSearch" onSubmit={handleSearch} action="">
-          <input className="productSearch__input"
+          <input
+            className="productSearch__input"
             value={searchInput}
             type="text"
-            placeholder="Find car,mobile phone and more..."
+            placeholder="Find car, mobile phone, and more..."
             onChange={e => setSearchInput(e.target.value)}
           />
           <button type="submit" className="searchAction">
@@ -70,38 +74,40 @@ function Header() {
         <span> ENGLISH </span>
         <Arrow></Arrow>
       </div>
-      {
-        user &&
+      {user && (
         <>
-            <img src="https://cdn3d.iconscout.com/3d/free/thumb/free-adobe-illustrator-3d-icon-download-in-png-blend-fbx-gltf-file-formats--logo-photoshop-ai-creative-software-app-pack-appliances-icons-9395200.png?f=webp"   height="36px"
-  width="36px" alt="Notification" className="header__notification" />
-<img 
-  src="https://static.vecteezy.com/system/resources/previews/028/726/702/non_2x/3d-rendering-of-speech-bubble-icons-3d-chat-icon-set-set-of-3d-speak-bubble-chatting-box-message-box-chat-icon-set-balloon-3d-style-free-png.png" 
-  alt="Chat" 
-  height="36px"
-  width="36px"
-  className="chat-icon" 
-  onClick={() => history.push('/chat/chatid')} 
-/>
+          <RiRobot3Fill className="header__notification" onClick={toggleChatbotPopup} />
+          <BsChatDotsFill className="chat-icon" onClick={() => history.push('/chat/chatid')} />
         </>
-      }
+      )}
       <div className="userSection">
-        {user ?
-          <Menu user={user} />
-          :
-          <div className="userLogin__btn" onClick={handleLogin}>Login</div>
-        }
+        {user ? <Menu user={user} /> : <div className="userLogin__btn" onClick={handleLogin}>Login</div>}
       </div>
       <div className={loginPopOn ? "login__popup" : "login__popupdisabled"}>
         <Login loginPopOn={loginPopOn} setLoginPopOn={setLoginPopOn} />
       </div>
-      <div className="header__sellBtn" >
-      
+      <div className="header__sellBtn">
         <div className="sellMenuContent" onClick={handleSellClick}>
-        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/upload-botton-3d-icon-download-in-png-blend-fbx-gltf-file-formats--button-uploading-pack-user-interface-icons-8093484.png"   alt="Sell Icon" className="sellIcon" />
-      
+          <MdAddBox className="sellIcon" />
         </div>
       </div>
+
+      {/* Chatbot Popup */}
+      {chatbotPopup && (
+        <div className="chatbot-popup">
+          <div className="chatbot-popup-content">
+            <button className="close-btn" onClick={toggleChatbotPopup}>×</button>
+            <iframe
+              src="https://ai.free4talk.xyz/"
+              title="AI Chatbot"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              style={{ overflow: 'hidden' }}
+            ></iframe>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

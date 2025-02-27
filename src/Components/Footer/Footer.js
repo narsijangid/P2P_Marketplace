@@ -82,14 +82,14 @@ function Footer() {
               <i className="bi bi-youtube"></i>
             </div>
           </div>
-          <div className="footer__apps">
+          {/* <div className="footer__apps">
             <img src="https://statics.olx.in/external/base/img/appstore_2x.webp" alt="img" />
             <img src="https://statics.olx.in/external/base/img/playstore_2x.webp" alt="img" />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="footer">
-        <p>Free Classifieds in India. © 2025 Dazzlone</p>
+        <p>India. © 2025 Dazzlone</p>
       </div>
     </div>
   );

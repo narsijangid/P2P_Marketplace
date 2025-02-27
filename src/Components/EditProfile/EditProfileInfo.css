@@ -68,9 +68,10 @@
 
 .editProfile__btn > button {
     border: none;
-    background-color: #005059;
+    background-color: #da9957;
     color: white;
     padding: 10px 15px;
+    font-weight: bold;
     border-radius: 5px;
 }
 
