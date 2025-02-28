@@ -12,6 +12,7 @@ import Login from '../Login/Login';
 import { BsChatDotsFill } from "react-icons/bs";
 import { RiRobot3Fill } from "react-icons/ri";
 import { MdAddBox } from "react-icons/md";
+import { GrFavorite } from "react-icons/gr";
 
 function Header() {
   const { user } = useContext(AuthContext);
@@ -76,7 +77,7 @@ function Header() {
       </div>
       {user && (
         <>
-          <RiRobot3Fill className="header__notification" onClick={() => history.push('favoritbabo')}  />
+          <GrFavorite className="header__notification" onClick={() => history.push('favoritbabo')}  />
           <BsChatDotsFill className="chat-icon" onClick={() => history.push('/chat/chatid')} />
         </>
       )}
