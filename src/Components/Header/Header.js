@@ -77,7 +77,7 @@ function Header() {
       </div>
       {user && (
         <>
-          <GrFavorite className="header__notification" onClick={() => history.push('favoritbabo')}  />
+          <GrFavorite className="header__notification" onClick={() => history.push('myfavorites')}  />
           <BsChatDotsFill className="chat-icon" onClick={() => history.push('/chat/chatid')} />
         </>
       )}
