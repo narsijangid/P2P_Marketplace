@@ -10,6 +10,7 @@ import { RiRobot3Line } from "react-icons/ri";
 import { BsFillPostcardHeartFill } from "react-icons/bs";
 import { GrFavorite } from "react-icons/gr";
 import { IoIosHelpCircleOutline } from "react-icons/io";
+import { MdOutlinePrivacyTip } from "react-icons/md";
 
 function GotChatapp(){
   window.location.href = "https://about.free4talk.xyz/#help";
@@ -46,6 +47,11 @@ const Menu = () => {
     setChatbotPopup(!chatbotPopup);
   }
 
+  const  handleClickprivacy = () => {
+    window.location.href = "https://about.free4talk.xyz/#privacy";
+  };
+
+
   return (
     <div className="menu">
       <div className="user__present">
@@ -81,10 +87,16 @@ const Menu = () => {
                 <BsFillPostcardHeartFill  className='babuhichat' />
                 <h5>My Post</h5>
               </div>
-              <div className="menu__section" onClick={toggleChatbotPopup}>
-                <RiRobot3Line className='babuhichat' />
-                <h5>Ai ChatBot</h5>
-              </div>
+
+
+
+              <Link to="myfavorites" className="menu__section horizontal__line">
+                <GrFavorite  className='favoritbabo'/>
+                
+                <h5>Favorite</h5>
+              </Link>
+
+          
               <Link to="chat/chatid" className="menu__section horizontal__line">
                 <IoChatboxEllipses className='babuhichat'  />
                 <h5>Chat</h5>
@@ -95,10 +107,10 @@ const Menu = () => {
                 <h5 onClick={GotChatapp}>Help</h5>
               </div>
 
-              <Link to="myfavorites" className="menu__section horizontal__line">
-                <GrFavorite  className='favoritbabo'/>
-                <h5>Favorite</h5>
-              </Link>
+              <div className="menu__section" onClick={handleClickprivacy}>
+                <MdOutlinePrivacyTip className='babuhichat' />
+                <h5>Privacy</h5>
+              </div>
 
               <div onClick={() => {
                 auth.signOut()
@@ -112,21 +124,7 @@ const Menu = () => {
         </div>
       </div>
 
-      {chatbotPopup && (
-        <div className="chatbot-popup">
-          <div className="chatbot-popup-content">
-            <button className="close-btn" onClick={toggleChatbotPopup}>×</button>
-            <iframe 
-              src="https://ai.free4talk.xyz/" 
-              title="AI Chatbot" 
-              width="100%" 
-              height="100%"
-              frameBorder="0"
-              style={{ overflow: 'hidden' }}
-            ></iframe>
-          </div>
-        </div>
-      )}
+   
     </div>
   );
 }

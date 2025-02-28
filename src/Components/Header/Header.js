@@ -12,12 +12,12 @@ import Login from '../Login/Login';
 import { BsChatDotsFill } from "react-icons/bs";
 import { RiRobot3Fill } from "react-icons/ri";
 import { MdAddBox } from "react-icons/md";
+import { GrFavorite } from "react-icons/gr";
 
 function Header() {
   const { user } = useContext(AuthContext);
   const history = useHistory();
   const [loginPopOn, setLoginPopOn] = useState(false);
-  const [chatbotPopup, setChatbotPopup] = useState(false); // State for chatbot popup
   const location = useLocation();
   const [searchInput, setSearchInput] = useState('');
   const [locationSearch, setLocationSearch] = useState('');
@@ -41,10 +41,8 @@ function Header() {
     history.push(`/search/search?${searchInput} ${locationSearch}`);
   };
 
-  const toggleChatbotPopup = () => {
-    setChatbotPopup(!chatbotPopup); // Toggle chatbot popup
-  };
-
+ 
+ 
   return (
     <div className="header__main">
       <div onClick={() => history.push('/')} className="brandName">
@@ -76,7 +74,7 @@ function Header() {
       </div>
       {user && (
         <>
-          <RiRobot3Fill className="header__notification" onClick={toggleChatbotPopup} />
+         <GrFavorite  className='favoritbabom' onClick={() => history.push('myfavorites')}/>
           <BsChatDotsFill className="chat-icon" onClick={() => history.push('/chat/chatid')} />
         </>
       )}
@@ -92,22 +90,8 @@ function Header() {
         </div>
       </div>
 
-      {/* Chatbot Popup */}
-      {chatbotPopup && (
-        <div className="chatbot-popup">
-          <div className="chatbot-popup-content">
-            <button className="close-btn" onClick={toggleChatbotPopup}>×</button>
-            <iframe
-              src="https://ai.free4talk.xyz/"
-              title="AI Chatbot"
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              style={{ overflow: 'hidden' }}
-            ></iframe>
-          </div>
-        </div>
-      )}
+    
+     
     </div>
   );
 }
