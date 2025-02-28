@@ -164,15 +164,6 @@ img[loading="lazy"].loaded {
     padding: 4px;
   }
 
-  .favoritbabom{
-    height: 36px;
-    width: 36px;
-    color: white;
-    background-color: #dac49d;
-    border-radius: 7px;
-    padding: 6px;
-  }
-
   .sellIcon{
     height: 40px;
     width: 40px;
@@ -404,3 +395,56 @@ align-items: center;
 
 
 
+/* Chatbot Popup Styles */
+.chatbot-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.chatbot-popup-content {
+  background: white;
+  width: 80%;
+  max-width: 600px;
+  height: 80%;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden; /* Hide scrollbar */
+}
+
+.chatbot-popup-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: #ffffff; /* Blue color */
+  color: rgb(208, 0, 0);
+  border: none;
+  border-radius: 50%; /* Circular button */
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001; /* Ensure it's above the iframe */
+}
+
+.close-btn:hover {
+  background: #ffffff; /* Darker blue on hover */
+}
