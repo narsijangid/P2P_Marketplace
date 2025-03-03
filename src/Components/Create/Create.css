@@ -1,6 +1,6 @@
 /* Header Styles */
 .create__header {
-  background-color: #f7f8f8;
+  background-color: #D2B48C;
   display: flex;
   align-items: center;
   padding: 10px 16px;
@@ -43,12 +43,12 @@
 
 /*footer*/
 .create__footer {
-  background-color: #002f34;
+  background-color: #D2B48C;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 75px;
+  padding: 16px 100px;
 }
 .create__footer span {
   color: white;

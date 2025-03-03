@@ -30,7 +30,7 @@ const Create = () => {
         </header>
         <div className="create__main">
           <div>
-            <h5>POST YOUR AD</h5>
+            <h5>POST YOUR ITEM</h5>
             {!subCategory ?
               <ChooseCategory setDatas={setDatas}
                 setSubCategory={setSubCategory} setCategory={setCategory}
@@ -43,10 +43,10 @@ const Create = () => {
           </div>
         </div>
         <footer className="create__footer">
-          <span>Sitemap</span>
+       
           <div>
-            <span style={{ fontWeight: 600 }}>Free Classifieds in India  .</span>
-            <span>&copy; 2006-2021 OLX</span>
+            <span style={{ fontWeight: 600 }}>Dazzlone</span>
+            <span>&copy; 2025 </span>
           </div>
         </footer>
       </div>

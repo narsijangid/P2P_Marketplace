@@ -140,14 +140,14 @@
 }
 .item__chatBtn {
   position: relative;
-  padding: 8px 17px;
-  margin-left:23%;
+  padding: 8px 30px;
+  margin-left:19%;
   font-size: 16px;
   font-weight: bold;
   color: #fff;
-  background: linear-gradient(135deg, #0004ff, #01b8eb);
+  background: linear-gradient(135deg, #191a6b, #eb9540);
   border: none;
-  border-radius: 50px;
+  border-radius: 9px;
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
@@ -161,8 +161,8 @@
   left: -5px;
   right: -5px;
   bottom: -5px;
-  background: linear-gradient(45deg, #001350, #0009af, #86a8e7, #00a6ff);
-  border-radius: 50px;
+  background: linear-gradient(45deg, #081235, #0009af, #86a8e7, #49d7c4);
+  border-radius: 9px;
   z-index: -1;
   animation: rotateBorder 3s linear infinite;
 }

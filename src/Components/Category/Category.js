@@ -1,4 +1,4 @@
-import Arrow from "../../assets/Arrow";
+import Arruji from "../../assets/Arruji";
 import "./Category.css";
 import Modal from "react-modal";
 import { useEffect, useState, useCallback } from "react";
@@ -45,7 +45,7 @@ const Category = () => {
                 <div className="category__titleContents" onClick={openModal}>
                     <span>Filter...</span>
                     <div className={modalIsOpen ? "category__arrow" : "category__arrowDown"}>
-                        <Arrow />
+                        <Arruji />
                     </div>
                 </div>
                 <div className="category__quickOptions">

@@ -63,6 +63,7 @@
   cursor: pointer;
 }
 .popup {
+  margin-top: 100px;
   position: fixed;
   top: 10%;
   left: 50%;
@@ -98,6 +99,8 @@
 
 .card__contents {
   cursor: pointer;
+  height: 100%;
+
 }
 
 .card__rate {
@@ -116,25 +119,23 @@
 }
 
 .card__deleteBtn {
+  position: absolute;
+  bottom: 10px;  /* Card ke neeche align */
+  right: 10px;   /* Right side me shift */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 10px;
+  gap: 10px;  /* Icons ke beech thoda gap */
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .card__deleteBtn > i {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
   cursor: pointer;
-  font-size: larger;
-  transition: 0.2s ease-in;
+  font-size: 20px;
+  transition: 0.2s ease-in-out;
 }
 
 .card__deleteBtn > i:hover {
-  transform: scale(1.3);
-  transition: 0.2s ease-in;
+  transform: scale(1.2);
 }
 
 .card__deleteBtn :first-child {
@@ -144,3 +145,4 @@
 .card__deleteBtn:last-child {
   color: #bd0404;
 }
+
