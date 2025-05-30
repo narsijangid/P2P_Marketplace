@@ -1,7 +1,7 @@
 [build]
-  command = "CI=false yarn build"
+  command = "yarn build"
   publish = "build"
 
-[build.environment]
-  NODE_VERSION = "16"
+[context.production.environment]
+  NODE_VERSION = "18"
   NODE_OPTIONS = "--openssl-legacy-provider"
