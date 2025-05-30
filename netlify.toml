@@ -1,7 +1,13 @@
 [build]
   command = "yarn build"
   publish = "build"
+  environment = { NODE_VERSION = "16" }
 
 [context.production.environment]
   NODE_VERSION = "18"
   NODE_OPTIONS = "--openssl-legacy-provider"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
