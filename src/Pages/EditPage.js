@@ -31,7 +31,7 @@ const EditPage = () => {
             <div className="editPage__main">
                 <div className="editPage__links">
                     <p className={(editInfo === 'info') ? 'editPage__activeLink' : 'editPage__link'} onClick={() => history.push('/editprofile/info')}>Edit Profile</p>
-                    <p className={(editInfo === 'picture') ? 'editPage__activeLink' : 'editPage__link'} onClick={() => history.push('/editprofile/picture')} > Profile Picture</p>
+                    {/* <p className={(editInfo === 'picture') ? 'editPage__activeLink' : 'editPage__link'} onClick={() => history.push('/editprofile/picture')} > Profile Picture</p> */}
                     <button onClick={() => history.push('/myProfile')} >View Profile</button>
                 </div>
                 <div className="editPage__contents">

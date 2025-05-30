@@ -2,78 +2,137 @@
     display: flex;
     padding: 40px 40px;
     min-height: 85vh;
+    background-color: #f8f9fa;
 }
 
 .editPage__links {
     width: 25%;
-    padding: 10px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: fit-content;
 }
 
 .editPage__link {
     margin: 0;
-    padding-bottom: 20px;
-    color: rgb(104, 104, 104);
+    padding: 12px 16px;
+    color: #6c757d;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.editPage__link:before {
+    content: "•";
+    color: #6c757d;
+    font-size: 1.2rem;
 }
 
 .editPage__activeLink {
     font-weight: 600;
     color: #002f34;
+    background-color: #f8f9fa;
+    padding: 12px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.editPage__links>p:hover {
-    cursor: pointer;
-}
-
-.editPage__links>button {
-    background-color: rgba(255, 255, 255, 0);
+.editPage__activeLink:before {
+    content: "•";
     color: #002f34;
-    padding: 7px 0px;
-    height: max-content;
-    border-radius: 5px;
-    border: 3px solid #002f34;
-    margin: 0;
-    font-size: small;
-    font-weight: 600;
-    width: 20vw;
-    white-space: nowrap;
+    font-size: 1.2rem;
 }
 
-.editPage__links>button:hover {
-    box-shadow: inset 0px 0px 1px 1px #002f34;
+.editPage__links > p:hover {
     cursor: pointer;
+    background-color: #f8f9fa;
+    color: #002f34;
+}
+
+.editPage__links > button {
+    background-color: #002f34;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    margin: 20px 0 0 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    width: 100%;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.editPage__links > button:hover {
+    background-color: #00474e;
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .editPage__contents {
     width: 75%;
-    border: 1px solid #002f3452;
-    border-radius: 7px;
-    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    margin-left: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-@media only screen and (max-width:700px) {
+@media only screen and (max-width: 768px) {
     .editPage__main {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .editPage__links {
+        width: 100%;
         display: flex;
         flex-direction: column;
-        padding: 10px;
+        padding: 15px;
     }
-    .editPage__links {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        column-gap: 10px;
-        align-items: center;
-    }
+
     .editPage__contents {
-        margin: auto;
         width: 100%;
+        margin: 0;
+        padding: 20px;
     }
-    .editPage__link, .editPage__activeLink{
-        padding: 0;
-        font-size: small;
+
+    .editPage__link,
+    .editPage__activeLink {
+        padding: 10px 12px;
+        font-size: 0.9rem;
     }
-    .editPage__links>button {
-        font-size: small;
-        width: max-content;
-        padding: 7px 3px;
+
+    .editPage__links > button {
+        margin: 10px 0 0 0;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .editPage__main {
+        padding: 15px;
+    }
+
+    .editPage__links {
+        padding: 12px;
+    }
+
+    .editPage__contents {
+        padding: 15px;
     }
 }

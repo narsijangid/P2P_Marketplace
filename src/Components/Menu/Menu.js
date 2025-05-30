@@ -85,10 +85,10 @@ const Menu = () => {
                 <RiRobot3Line className='babuhichat' />
                 <h5>Ai ChatBot</h5>
               </div> */}
-              <Link to="chat/chatid" className="menu__section horizontal__line">
+              <div onClick={() => history.push('/chat')} className="menu__section horizontal__line">
                 <IoChatboxEllipses className='babuhichat'  />
                 <h5>Chat</h5>
-              </Link>
+              </div>
 
               <div className="menu__section">
                 <IoIosHelpCircleOutline className='chatboboico' />

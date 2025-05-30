@@ -1,10 +1,11 @@
 /* Header Styles */
 .create__header {
-  background-color: #D2B48C;
+  background: linear-gradient(to top right, #131313, #1808d1);
   display: flex;
   align-items: center;
   padding: 10px 16px;
   width: 100%;
+  color: white;
   position: fixed;
   top: 0;
   z-index: 10;

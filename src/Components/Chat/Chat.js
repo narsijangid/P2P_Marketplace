@@ -3,214 +3,306 @@ import { useHistory, useParams } from "react-router";
 import db from "../../firebase";
 import { AuthContext } from "../../store/Context";
 import "./Chat.css";
+import { IoSend } from "react-icons/io5";
+import { BiArrowBack } from "react-icons/bi";
+import { BsSearch } from "react-icons/bs";
 
 const Chat = () => {
     const { user } = useContext(AuthContext);
     const { chatId } = useParams();
-    const [text, setText] = useState('')
-    const [userNames, setUserNames] = useState([]);
-    const [userId, setUserId] = useState([]);
-    const [userDetails, setUserDetails] = useState([]);
+    const [text, setText] = useState('');
+    const [chatList, setChatList] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
     const [messages, setMessages] = useState([]);
+    const [userDetails, setUserDetails] = useState([]);
     const messagesEndRef = useRef(null);
-    const [forbidden, setForbidden] = useState(false);
     const history = useHistory();
-    const [loading, setLoading] = useState(false);
-    const [otherPreson, setOtherPreson] = useState();
+    const [loading, setLoading] = useState(true);
 
-    //fetching user IDs from chat
+    // Redirect to login if not authenticated
     useEffect(() => {
-        setLoading(true)
-        db.collection("chat").doc(`${chatId}`).get().then(res => {
-            setUserId(
-                res.data()?.users
-            )
-        })
-        setLoading(false);
-        return () => {
-
+        if (!user) {
+            history.push('/');
         }
-    }, [chatId, user])
+    }, [user, history]);
 
-    //finding if the user has access to that particular chat
-    //to forbade those without
+    // Fetch user details
     useEffect(() => {
-        (userId?.includes(user?.uid)) ? setForbidden(false) : setForbidden(true);
-        return () => {
-        }
-    }, [user, userId]);
-
-    //fetching all messages
-    useEffect(() => {
-        db.collection('chat').doc(`${chatId}`).collection('messages').orderBy("createdAt", "asc").onSnapshot(snapshot => {
-            const allMessages = snapshot.docs.map((message) => {
-                return {
-                    ...message.data(),
-                    id: message.id,
-                    date: message.data().createdAt.toDate(),
-                    hour: message.data().createdAt.toDate().toLocaleString('en-IN', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true, day: 'numeric', month: 'numeric', year: 'numeric' }),
+        if (user) {
+            db.collection('users').doc(`${user.uid}`).get().then(res => {
+                if (res.exists) {
+                    setUserDetails(res.data());
                 }
-            })
-            setMessages(allMessages)
-        })
-        return () => {
-
+            }).catch(error => {
+                console.error("Error fetching user details:", error);
+            });
         }
-    }, [chatId])
+    }, [user]);
 
-    //fetching userDetails from users
+    // Fetch chat list with user details
     useEffect(() => {
-        db.collection('users').doc(`${user?.uid}`).get().then(res => {
-            setUserDetails(res.data())
-        })
-        return () => {
+        if (user) {
+            const fetchChats = async () => {
+                try {
+                    const snapshot = await db.collection('chat')
+                        .where('users', 'array-contains', user.uid)
+                        .get();
 
+                    const chats = await Promise.all(snapshot.docs.map(async doc => {
+                        try {
+                            const chatData = doc.data();
+                            if (!chatData || !chatData.users) {
+                                console.error("Invalid chat data:", doc.id);
+                                return null;
+                            }
+
+                            const otherUserId = chatData.users.find(id => id !== user.uid);
+                            if (!otherUserId) {
+                                console.error("Could not find other user in chat:", doc.id);
+                                return null;
+                            }
+
+                            // Get other user's details
+                            const otherUserDoc = await db.collection('users').doc(otherUserId).get();
+                            if (!otherUserDoc.exists) {
+                                console.error("Other user not found:", otherUserId);
+                                return null;
+                            }
+
+                            const otherUserData = otherUserDoc.data();
+                            if (!otherUserData) {
+                                console.error("No user data found for:", otherUserId);
+                                return null;
+                            }
+
+                            // Get last message
+                            const lastMessageSnapshot = await db.collection('chat')
+                                .doc(doc.id)
+                                .collection('messages')
+                                .orderBy('createdAt', 'desc')
+                                .limit(1)
+                                .get();
+
+                            const lastMessage = lastMessageSnapshot.docs[0]?.data();
+
+                            return {
+                                id: doc.id,
+                                otherUser: {
+                                    id: otherUserId,
+                                    username: otherUserData.username || 'Unknown User',
+                                    photoURL: otherUserData.photourl || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png",
+                                    online: otherUserData.online || false,
+                                    lastSeen: otherUserData.lastSeen
+                                },
+                                lastMessage: lastMessage ? {
+                                    text: lastMessage.text,
+                                    createdAt: lastMessage.createdAt.toDate(),
+                                    senderId: lastMessage.userId
+                                } : null
+                            };
+                        } catch (error) {
+                            console.error("Error processing chat:", doc.id, error);
+                            return null;
+                        }
+                    }));
+
+                    // Filter out any null values from failed chat processing
+                    const validChats = chats.filter(chat => chat !== null);
+                    setChatList(validChats);
+                    setLoading(false);
+                } catch (error) {
+                    console.error("Error fetching chats:", error);
+                    setLoading(false);
+                }
+            };
+
+            fetchChats();
         }
-    }, [user, chatId])
-    //fetching userNames from chats
+    }, [user]);
+
+    // Fetch messages for specific chat
     useEffect(() => {
-        db.collection("chat").doc(`${chatId}`).get().then(res => {
-            setUserNames({
-                user1: res.data()?.user1,
-                user2: res.data()?.user2
-            })
-        })
-        return () => {
-
+        if (chatId) {
+            const unsubscribe = db.collection('chat').doc(`${chatId}`).collection('messages')
+                .orderBy("createdAt", "asc")
+                .onSnapshot(snapshot => {
+                    const allMessages = snapshot.docs.map((message) => ({
+                        ...message.data(),
+                        id: message.id,
+                        date: message.data().createdAt.toDate(),
+                        hour: message.data().createdAt.toDate().toLocaleString('en-IN', { 
+                            hour: 'numeric', 
+                            minute: 'numeric', 
+                            hour12: true 
+                        })
+                    }));
+                    setMessages(allMessages);
+                });
+            return () => unsubscribe();
         }
-    }, [chatId, user])
+    }, [chatId]);
 
+    // Auto scroll to bottom
     useEffect(() => {
-        if (user && userId) {
-            if (userId[0] === user.uid) {
-                db.collection('users').doc(userId[1]).get().then(res => {
-                    setOtherPreson(res.data())
-                })
-            } else {
-                db.collection('users').doc(userId[0]).get().then(res => {
-                    setOtherPreson(res.data())
-                })
-            }
-        }
-        return () => {
-
-        }
-    }, [user, userId])
-
-
-    //to place the scrollbar of chat container always at bottom
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    }
-    useEffect(() => {
-        scrollToBottom()
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    //sending message function
-    const sendText = (e) => {
+    const handleSend = async (e) => {
         e.preventDefault();
-        (text !== '') &&
-            db.collection('chat').doc(`${chatId}`).collection('messages').add({
-                text: text,
+        if (!text.trim()) return;
+
+        try {
+            await db.collection('chat').doc(`${chatId}`).collection('messages').add({
+                text: text.trim(),
                 createdAt: new Date(),
-                sender: user.uid
-            }).then(
-                setText('')
-            )
+                userId: user.uid,
+                username: userDetails.username
+            });
+            setText('');
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    };
+
+    const getLastSeen = (lastSeen) => {
+        if (!lastSeen) return '';
+        
+        const lastSeenDate = lastSeen.toDate();
+        const now = new Date();
+        const diffInMinutes = Math.floor((now - lastSeenDate) / (1000 * 60));
+        
+        if (diffInMinutes < 1) return 'Just now';
+        if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+        if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
+        return lastSeenDate.toLocaleDateString();
+    };
+
+    const filteredChatList = chatList.filter(chat => 
+        chat.otherUser.username.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    if (loading) {
+        return (
+            <div className="chat__loading">
+                <div className="chat__loadingSpinner"></div>
+                <p>Loading chats...</p>
+            </div>
+        );
+    }
+
+    // Chat List View
+    if (!chatId) {
+        return (
+            <div className="chat__container">
+                <div className="chat__header">
+                    <h2>Messages</h2>
+                    <div className="chat__search">
+                        <BsSearch />
+                        <input
+                            type="text"
+                            placeholder="Search chats..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="chat__list">
+                    {filteredChatList.length > 0 ? (
+                        filteredChatList.map(chat => (
+                            <div
+                                key={chat.id}
+                                className="chat__listItem"
+                                onClick={() => history.push(`/chat/${chat.id}`)}
+                            >
+                                <div className="chat__listItemAvatar">
+                                    <img src={chat.otherUser.photoURL} alt={chat.otherUser.username} />
+                                    <span className={`chat__status ${chat.otherUser.online ? 'online' : ''}`} />
+                                </div>
+                                <div className="chat__listItemContent">
+                                    <div className="chat__listItemHeader">
+                                        <h3>{chat.otherUser.username}</h3>
+                                        {chat.lastMessage && (
+                                            <span className="chat__listItemTime">
+                                                {chat.lastMessage.createdAt.toLocaleTimeString([], { 
+                                                    hour: '2-digit', 
+                                                    minute: '2-digit' 
+                                                })}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="chat__listItemMessage">
+                                        {chat.lastMessage ? (
+                                            <p className={chat.lastMessage.senderId === user.uid ? 'sent' : ''}>
+                                                {chat.lastMessage.text}
+                                            </p>
+                                        ) : (
+                                            <p className="chat__noMessage">No messages yet</p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="chat__empty">
+                            <p>No chats found</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    }
+
+    // Individual Chat View
+    const currentChat = chatList.find(chat => chat.id === chatId);
+    if (!currentChat) {
+        history.push('/chat');
+        return null;
     }
 
     return (
-        <div className="chat__main">
-            {
-                ((chatId !== 'chatid') && !forbidden) &&
-                <div
-
-                    className="chat__header"
-                    style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}
-                >
-                    <i onClick={() => history.goBack()} className="bi bi-arrow-left-short chat__backArrow"></i>
-                    <img
-                        onClick={() => {
-                            (user.uid !== userId[0]) ?
-                                history.push(`/profile/${userId[0]}`)
-                                :
-                                history.push(`/profile/${userId[1]}`)
-                        }}
-                        style={{ width: '35px', height: '35px', borderRadius: '50%', objectFit: 'cover' }}
-                        src={otherPreson?.photourl}
-                        alt=""
-                    />
-                    {
-                        (
-                            (userNames?.user1 === userDetails?.username)
-                            ||
-                            (userNames?.user1 === user?.displayName)
-                        ) ?
-                            <h4
-                                onClick={() => {
-                                    (user.uid !== userId[0]) ?
-                                        history.push(`/profile/${userId[0]}`)
-                                        :
-                                        history.push(`/profile/${userId[1]}`)
-                                }}
-                            >
-                                {userNames?.user2}
-                            </h4>
-                            :
-                            <h4
-                                onClick={() => {
-                                    (user.uid !== userId[0]) ?
-                                        history.push(`/profile/${userId[0]}`)
-                                        :
-                                        history.push(`/profile/${userId[1]}`)
-                                }}
-                            >
-                                {userNames.user1}
-                            </h4>
-                    }
-                </div>
-            }
-            {
-                (chatId === 'chatid') && <h2 className="chat__warning">Start Chatting...</h2>
-            }
-            {
-                (forbidden) ?
-                    <>
-                        {
-                            (chatId !== 'chatid') &&
-                            <h2 className="chat__warning">Loading...</h2>
-                        }
-                    </>
-                    :
-                    <div className="chat__messageContainer">
-                        {
-                            messages.map(message => {
-                                return (
-                                    <div key={message.id} className={(message.sender === user.uid) ? "chat__message chat__messageSend" : "chat__message chat__messageReceive"}>
-                                        <p className="chat__messageText">{message.text}</p>
-                                        <p className="chat__messageTime">{message.hour}</p>
-                                    </div>
-                                )
-                            })
-                        }
-                        <div ref={messagesEndRef} />
+        <div className="chat__container">
+            <div className="chat__header">
+                <div className="chat__headerLeft">
+                    <BiArrowBack onClick={() => history.push('/chat')} />
+                    <div className="chat__userInfo">
+                        <h3>{currentChat.otherUser.username}</h3>
+                        <span className={`chat__status ${currentChat.otherUser.online ? 'online' : ''}`}>
+                            {currentChat.otherUser.online ? 'Online' : `Last seen ${getLastSeen(currentChat.otherUser.lastSeen)}`}
+                        </span>
                     </div>
-            }
-            {
-                ((chatId !== 'chatid') && !forbidden) &&
-                <form onSubmit={sendText} className="chat__inputContainer">
-                    <input onChange={(e) => setText(e.target.value)} className="chat__input" type="text" value={text} placeholder="Start typing" />
-                    <img 
-  src="https://cdn-icons-png.freepik.com/256/10924/10924424.png?semt=ais_hybrid" 
-  alt="Telegram Icon" 
-  onClick={sendText} 
-  style={{ cursor: 'pointer',padding:'4px', width: '44px', height: '44px' }} 
-/>
+                </div>
+            </div>
 
-                </form>
-            }
+            <div className="chat__messages">
+                {messages.map((message) => (
+                    <div
+                        key={message.id}
+                        className={`chat__message ${message.userId === user.uid ? 'sent' : 'received'}`}
+                    >
+                        <div className="chat__messageContent">
+                            <p>{message.text}</p>
+                            <span className="chat__messageTime">{message.hour}</span>
+                        </div>
+                    </div>
+                ))}
+                <div ref={messagesEndRef} />
+            </div>
+
+            <form className="chat__inputContainer" onSubmit={handleSend}>
+                <div className="chat__inputWrapper">
+                    <input
+                        type="text"
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        placeholder="Type a message..."
+                    />
+                    <button type="submit">
+                        <IoSend />
+                    </button>
+                </div>
+            </form>
         </div>
     );
-}
+};
 
 export default Chat;

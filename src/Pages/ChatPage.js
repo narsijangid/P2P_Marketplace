@@ -1,11 +1,12 @@
+import React from 'react';
 import { useContext, useEffect } from "react";
 import { Redirect, useHistory, useParams } from "react-router";
-import OlxLogo from "../assets/OlxLogo";
+import Header from "../Components/Header/Header";
+import Footer from '../Components/Footer/Footer';
 import AllChat from "../Components/AllChats/AllChat";
 import Chat from "../Components/Chat/Chat";
-import Header from "../Components/Header/Header"
 import { AuthContext } from "../store/Context";
-import "./ChatPage.css"
+import "./ChatPage.css";
 
 const ChatPage = () => {
     const { user } = useContext(AuthContext);
@@ -14,38 +15,40 @@ const ChatPage = () => {
 
     useEffect(() => {
         if (!user) {
-            return <Redirect to={{
-                pathname: "/",
-                state: { from: "create" }
-            }} />
+            history.push('/');
         }
-        return () => {
+    }, [user, history]);
 
-        }
-    }, [user])
+    if (!user) {
+        return null;
+    }
 
     return (
-        <div className="chat__page">
-         <header className="create__header">
-                <div onClick={() => history.goBack()} className="createBack__icon">
-                    <i className="bi bi-arrow-left"></i>
-                </div>
-                {/* <div onClick={() => history.push('/')} className="create__brandName">
-                    <OlxLogo />
-                </div> */}
-            </header>
-            <div className="chatPage__main">
-                <div className="chatPage__container">
-                    <div className={(chatId !== 'chatid') ? 'allChat__only chatPage__allChat' : 'chatPage__allChat'}>
+        <div className="chatPage">
+            <Header />
+            <div className="chatPage__container">
+                <div className="chatPage__sidebar">
+                    <div className="chatPage__sidebarHeader">
+                        <h2>Messages</h2>
+                    </div>
+                    <div className="chatPage__chatList">
                         <AllChat />
                     </div>
-                    <div className={(chatId === 'chatid') ? ' chat__only chatPage__chats' : 'chatPage__chats'}>
+                </div>
+                <div className="chatPage__main">
+                    {chatId ? (
                         <Chat />
-                    </div>
+                    ) : (
+                        <div className="chatPage__welcome">
+                            <h2>Welcome to Messages</h2>
+                            <p>Select a conversation to start chatting</p>
+                        </div>
+                    )}
                 </div>
             </div>
+            <Footer />
         </div>
     );
-}
+};
 
 export default ChatPage;

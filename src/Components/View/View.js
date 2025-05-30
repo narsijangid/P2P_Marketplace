@@ -133,7 +133,14 @@ function View() {
         <div className="item__sellerDescription">
           <p>Seller description</p>
           <div className="item__sellerImageName">
-            <img src={sellerDetails.photourl} alt="img" />
+            <img 
+              src={sellerDetails.photourl || "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png"} 
+              alt="Profile" 
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://static-00.iconduck.com/assets.00/profile-circle-icon-512x512-zxne30hp.png";
+              }}
+            />
             <p>
               {
                 (user?.uid === sellerDetails.id) ?

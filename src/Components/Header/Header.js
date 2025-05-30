@@ -88,9 +88,17 @@ function Header() {
         <Login loginPopOn={loginPopOn} setLoginPopOn={setLoginPopOn} />
       </div>
       <div className="header__sellBtn">
-        <div className="sellMenuContent" onClick={handleSellClick}>
-          <MdAddBox className="sellIcon" />
-        </div>
+     <div className="sellMenuContent" onClick={handleSellClick}>
+  <img 
+    src="https://cdn-icons-png.freepik.com/256/12188/12188097.png?semt=ais_hybrid" 
+    alt="Sell Icon" 
+    className="sellIcon" 
+    width="50" 
+    height="50" 
+    
+  />
+</div>
+
       </div>
 
       {/* Chatbot Popup */}

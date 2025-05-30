@@ -1,89 +1,163 @@
 .seller__component {
-    background-color: whitesmoke;
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    padding: 70px 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .seller__profileName {
-    background-color: white;
     display: flex;
     align-items: center;
-    column-gap: 20px;
-    padding: 20px 40px;
-    border-radius: 7px;
-    margin-bottom: 40px;
+    gap: 20px;
+    margin-bottom: 30px;
 }
-.seller__profileName > img {
-    width: 100px;
-    height: auto;
+
+.seller__profileImage {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    object-fit: cover;
-}
-.seller__profileName > h1 {
-    font-size: 2.7rem;
-    font-weight: 600;
-    color: #002f34;
-    margin: 0;
-}
-.seller__profileName > p {
-    text-decoration: underline;
-    font-weight: 600;
-    color: #002f34;
-    margin: 0;
-}
-.seller__profileName > p:hover {
+    overflow: hidden;
+    position: relative;
     cursor: pointer;
+    border: 2px solid #ddd;
+    transition: all 0.3s ease;
 }
-.seller__profileInfo{
-    border: 1px solid #002f3435;
-    height: max-content;
-    width: 270px;
+
+.seller__profileImage:hover {
+    border-color: #002f34;
+    transform: scale(1.05);
 }
-.seller__profileInfo>h5 {
-    background-color: #002f342c;
-    font-size: 1rem;
-    font-weight: 600;
+
+.seller__profileImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.seller__profileImage:hover img {
+    transform: scale(1.1);
+}
+
+.seller__profileImage::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.seller__profileImage:hover::after {
+    opacity: 1;
+}
+
+.seller__profileName h1 {
+    font-size: 24px;
     color: #002f34;
-    padding: 2px 7px;
+    margin: 0;
 }
 
-.seller__profileInfo>h6 {
-    color: #002f3496;
-    font-size: small;
-    padding-left: 7px;
+.seller__profileName p {
+    color: #002f34;
+    cursor: pointer;
+    text-decoration: underline;
+    margin: 0;
 }
-
-
 
 .seller__details {
-    display: flex;
-    flex-direction: row-reverse;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
 }
 
 .seller__rightSide {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   width: 30%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-.seller__ads {
-    width: 70%;
+
+.seller__profileInfo {
+    margin-bottom: 20px;
 }
-.seller__component > h6 {
-    font-weight: 600;
+
+.seller__profileInfo h5 {
     color: #002f34;
+    margin: 0 0 10px 0;
 }
+
+.seller__profileInfo h6 {
+    color: #666;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.profile__otherInfo {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.profile__otherInfo h6 {
+    color: #666;
+    margin: 0 0 10px 0;
+    font-size: 14px;
+}
+
+.profile__otherInfo h5 {
+    color: #002f34;
+    cursor: pointer;
+    margin: 0;
+    text-decoration: underline;
+}
+
+.seller__ads {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.seller__ads h6 {
+    color: #002f34;
+    margin: 0 0 20px 0;
+    font-size: 18px;
+}
+
 .sellerAds__container {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 20px;
-    justify-content: space-evenly;
-    row-gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 .sellerAds__cards {
+    transition: transform 0.3s ease;
+}
+
+.sellerAds__cards:hover {
+    transform: translateY(-5px);
+}
+
+.myads__noads {
+    text-align: center;
+    padding: 40px;
+}
+
+.myads__noads h1 {
+    color: #666;
+    font-size: 20px;
+    margin: 0;
+}
+
+.seller__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    font-size: 18px;
+    color: #666;
 }
 
 @media only screen and (max-width:1000px){

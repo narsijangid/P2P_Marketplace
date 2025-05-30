@@ -8,8 +8,8 @@
   width: 100%;
   height: 198px;
   justify-content: center;
-  background-color: #D2B48C;
-  border-bottom: 1px solid rgb(189, 189, 189);
+background: linear-gradient(to top right, #210661, #0e9271);
+  border-bottom: 1px solid rgb(255, 255, 255);
 }
 
 .footerBanner__content {
@@ -60,8 +60,9 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
-  background: #D2B48C;
+
   padding: 16px 0px 32px 0px;
+  border-top: 0.3px solid black;
 }
 .footer__cards {
   display: flex;
@@ -86,7 +87,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background: #d3b083;
+  background: linear-gradient(to top right, #131313, #1808d1);
   color: whitesmoke;
 }
 

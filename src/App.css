@@ -5,9 +5,17 @@
     scroll-behavior: smooth;
 }
 
+body {
+    min-height: 100vh;
+    overflow-y: auto;
+    position: relative;
+}
 
-
-
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
 /* Image Optimization */
 img {

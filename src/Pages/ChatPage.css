@@ -7,70 +7,96 @@
 
 /* Make html and body elements take up the full viewport */
 
-/* Ensure the outer wrapper takes full screen */
-.chat__page {
-    height: 100%;
-    width: 100%;
+.chatPage {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-  
+    background-color: #f5f5f5;
 }
 
-/* Ensure main container fills the screen */
-.chatPage__main {
-    display: flex;
-    flex: 1;  /* This ensures it takes up the remaining space */
-    width: 100%;
-    
-}
-
-/* The container that holds the chat and the sidebar */
 .chatPage__container {
-    display: flex;
     flex: 1;
-    width: 100%;
-    height: 100vh;  /* Full height of the viewport */
-    overflow: hidden;  /* Prevents overflow */
+    display: flex;
+    max-width: 1400px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    height: calc(100vh - 140px);
 }
 
-/* Sidebar chat section */
-.chatPage__allChat {
-    width: 35%;  /* Sidebar width */
-    height: 100vh; /* Full height of container */
-
-
-
+.chatPage__sidebar {
+    width: 350px;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    background: white;
 }
 
-/* Main chat section */
-.chatPage__chats {
-    width: 60%;
-    height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.159);
-    border-radius: 7px;
-    margin-left: 20px;
+.chatPage__sidebarHeader {
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-/* Responsive adjustments for smaller screens */
-@media only screen and (max-width: 800px) {
-    .allChat__only {
-        display: none;
-    }
-    .chat__only {
-        display: none;
-    }
-    .chatPage__allChat {
-        width: 98%;
-        height: 90vh;
-    }
-    .chatPage__chats {
-        width: 95%;
-        height: 90vh;
+.chatPage__sidebarHeader h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1f2937;
+}
+
+.chatPage__chatList {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chatPage__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f9fafb;
+}
+
+.chatPage__welcome {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: #6b7280;
+}
+
+.chatPage__welcome h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #1f2937;
+}
+
+.chatPage__welcome p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .chatPage__container {
         margin: 0;
-        
+        height: calc(100vh - 120px);
+        border-radius: 0;
     }
+
+    .chatPage__sidebar {
+        width: 100%;
+        display: none;
+    }
+
+    .chatPage__sidebar.active {
+        display: flex;
+    }
+
     .chatPage__main {
-        padding: 0;
-        margin: 0;
+        width: 100%;
     }
 }

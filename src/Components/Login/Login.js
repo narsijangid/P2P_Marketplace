@@ -35,7 +35,15 @@ function Login({ setLoginPopOn }) {
         setIsSignUp(false);
       }
     } catch (err) {
-      setError(err.message);
+      if (err.message.includes('INVALID_LOGIN_CREDENTIALS')) {
+        setError('Invalid email or password');
+      } else if (err.message.includes('EMAIL_EXISTS')) {
+        setError('Email already exists');
+      } else if (err.message.includes('WEAK_PASSWORD')) {
+        setError('Password should be at least 6 characters');
+      } else {
+        setError('Something went wrong. Please try again');
+      }
     }
   };
 
@@ -84,7 +92,7 @@ function Login({ setLoginPopOn }) {
           alt="Logo"
         />
         <h3>{isSignUp ? 'Sign Up' : 'Login'}</h3>
-        {error && <p className="login__error">!!! {error}</p>}
+        {error && <p className="login__error">{error}</p>}
         <form className="login__form" onSubmit={handleSubmit}>
           <input
             className="input"
