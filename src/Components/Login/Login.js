@@ -86,11 +86,13 @@ function Login({ setLoginPopOn }) {
           </div>
         </div>
         <img
-          onClick={() => history.push('/')}
-          className="login__logo"
-          src="https://imagizer.imageshack.com/img922/3706/Q1vJOp.png"
-          alt="Logo"
-        />
+  onClick={() => history.push('/')}
+  className="login__logo"
+  src="https://i.ibb.co/xKnMCVYF/ffselllogo.jpg"
+  alt="Logo"
+  style={{ borderRadius: '20px' }}
+/>
+
         <h3>{isSignUp ? 'Sign Up' : 'Login'}</h3>
         {error && <p className="login__error">{error}</p>}
         <form className="login__form" onSubmit={handleSubmit}>

@@ -44,7 +44,7 @@
 
 /*footer*/
 .create__footer {
-  background-color: #D2B48C;
+  background: linear-gradient(to top right, #131313, #1808d1);
   z-index: 1;
   display: flex;
   align-items: center;

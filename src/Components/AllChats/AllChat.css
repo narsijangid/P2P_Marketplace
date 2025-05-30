@@ -20,7 +20,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    overflow: hidden;
+    /* overflow: hidden; */
     flex-shrink: 0;
 }
 
@@ -59,8 +59,8 @@
     font-size: 0.875rem;
     color: #6b7280;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
 }
 
 .allChat__empty {

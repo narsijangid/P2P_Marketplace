@@ -5,16 +5,25 @@
     scroll-behavior: smooth;
 }
 
+html {
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
 body {
     min-height: 100vh;
-    overflow-y: auto;
     position: relative;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 #root {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Image Optimization */
@@ -66,8 +75,20 @@ img[loading="lazy"].loaded {
 
 /* Mobile Responsive */
 @media only screen and (max-width: 768px) {
+    html, body {
+        height: 100%;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        position: relative;
+    }
+    
     body {
         background-color: #fff;
+    }
+    
+    #root {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
     }
 }
 
